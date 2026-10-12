@@ -1,0 +1,49 @@
+material,activity,location,unit,activity_per_kg,mineral,basis
+acrylonitrile-butadiene-styrene copolymer,market for acrylonitrile-butadiene-styrene copolymer,GLO,kilogram,1,,"Gerloff's `acrylonitrile-butadiene production`; 3.10 carries the copolymer, not the rubber"
+aluminium oxide,"market for aluminium oxide, non-metallurgical","IAI Area, EU27 & EFTA",kilogram,1,Aluminium,"the SOEC electrolyte support is a ceramic, so the non-metallurgical grade 3.10 splits out of the single dataset Gerloff names"
+"aluminium, wrought alloy","market for aluminium, wrought alloy",GLO,kilogram,1,Aluminium,
+barium oxide,market for barium oxide,GLO,kilogram,1,Barium,
+boric oxide,market for boric oxide,World,kilogram,1,Boron,
+cadmium,"market for cadmium, semiconductor-grade",GLO,kilogram,1,Cadmium,"the CdTe absorber, so the semiconductor grade rather than refined cadmium"
+carbon black,market for carbon black,GLO,kilogram,1,,
+cast iron,market for cast iron,GLO,kilogram,1,,
+cerium oxide,market for cerium oxide,World,kilogram,1,Cerium,"Gerloff's `cerium concentrate`, which 3.10 carries as the oxide"
+concrete,"market for concrete, normal strength",CH,cubic meter,0.000410714,,"the market sells volume: 1/2434.78 kg per m3, Gerloff's own 5600 kg == 2.3 m3. The CH normal-strength market is the one the ecoinvent grid datasets buy"
+copper,"market for copper, cathode",World,kilogram,1,Copper,
+dysprosium,market for dysprosium oxide,World,kilogram,1.14768,Dysprosium,"reported as the element; Dy2O3 is 87.13% Dy, which the dataset's own in-ground flow confirms"
+"electronics, for control units","market for electronics, for control units",GLO,kilogram,1,,
+ethylene glycol,market for ethylene glycol,RER,kilogram,1,,
+flat glass,"market for flat glass, uncoated",RER,kilogram,1,,"the module's front glass; uncoated, since Carrara gives no coating"
+gallium,"market for gallium, semiconductor-grade",World,kilogram,1,Gallium,"the CIGS absorber, so the semiconductor grade"
+germanium,"market for germanium, concentrate",World,kilogram,1,Germanium,"premise's germanium co-product of the zinc mine, on a contained-metal basis (1 kg in ground per kg); ecoinvent 3.10 carries no germanium product at all"
+glass fibre,market for glass fibre,GLO,kilogram,1,,
+glass fibre reinforced plastic,"market for glass fibre reinforced plastic, polyester resin, hand lay-up",GLO,kilogram,1,,"Carrara's `glass/carbon composites`, taken as all glass fibre (see sources.md); hand lay-up is the blade process"
+indium,market for indium,World,kilogram,1,Indium,
+iridium,market for iridium,World,kilogram,1,Iridium,premise's iridium co-product of the PGM basket; ecoinvent 3.10 carries no iridium product
+lubricating oil,market for lubricating oil,RER,kilogram,1,,
+neodymium,market for neodymium oxide,World,kilogram,1.16638,Neodymium,"reported as the element; Nd2O3 is 85.74% Nd, which the dataset's own in-ground flow confirms"
+nickel,"market for nickel, class 1",World,kilogram,1,Nickel,"Gerloff's `nickel, 99.5%`, renamed `nickel, class 1` in 3.10"
+plastic,"market for polyethylene, low density, granulate",GLO,kilogram,1,,Carrara names no resin for its `Polymers` and `Plastic` rows; polyethylene is the commodity generic
+platinum,market for platinum,World,kilogram,1,Platinum,
+"polyethylene, low density, granulate","market for polyethylene, low density, granulate",GLO,kilogram,1,,
+"polypropylene, granulate","market for polypropylene, granulate",GLO,kilogram,1,,
+polysulfone,market for polysulfone,GLO,kilogram,1,,
+praseodymium,market for praseodymium oxide,World,kilogram,1.17031,Praseodymium,"reported as the element; the dataset's own in-ground flow puts it at Pr2O3, 85.45% Pr, not the Pr6O11 of trade"
+praseodymium oxide,market for praseodymium oxide,World,kilogram,1,Praseodymium,"Gerloff reports the oxide, so it is bought as weighed"
+reinforcing steel,market for reinforcing steel,GLO,kilogram,1,,
+samarium-europium-gadolinium oxide,market for samarium-europium-gadolinium oxide,GLO,kilogram,1,,"Gerloff's `samarium europium gadolinium concentrate, 94% rare earth oxide`, which 3.10 carries as the oxide"
+selenium,market for selenium,World,kilogram,1,Selenium,
+silicon,"market for silicon, solar grade",GLO,kilogram,1,Silicon,"Carrara's row is a silicon mass, so the purified feedstock; crystal pulling is a forming step and this table carries none"
+silicone product,market for silicone product,RER,kilogram,1,,
+silver,market for silver,World,kilogram,1,Silver,
+"steel, chromium steel 18/8","market for steel, chromium steel 18/8",GLO,kilogram,1,,
+"steel, low-alloyed","market for steel, low-alloyed",WEU,kilogram,1,,"premise regionalises this market and links the European construction datasets to WEU, so the grid's steel and the turbine's are measured on one basis"
+synthetic rubber,market for synthetic rubber,GLO,kilogram,1,,
+tellurium,"market for tellurium, semiconductor-grade",World,kilogram,1,Tellurium,"the CdTe absorber, so the semiconductor grade"
+terbium,market for terbium oxide,World,kilogram,1.151,Terbium,"reported as the element; the dataset's own in-ground flow puts it at Tb2O3, 86.88% Tb, not the Tb4O7 of trade"
+tetrafluoroethylene,market for tetrafluoroethylene,GLO,kilogram,1,,
+titanium,market for titanium,World,kilogram,1,Titanium,
+"tube insulation, elastomere","market for tube insulation, elastomere",GLO,kilogram,1,,
+"zeolite, powder","market for zeolite, powder",GLO,kilogram,1,,
+zinc,market for zinc,World,kilogram,1,Zinc,"the tower galvanising; zinc is a helper metal, tracked as germanium's host and not as demand"
+zirconium oxide,market for zirconium oxide,GLO,kilogram,1,Zirconium,

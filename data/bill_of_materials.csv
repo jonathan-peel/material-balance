@@ -1,0 +1,146 @@
+sub_technology,database,part,material,kg_per_mw
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"aluminium, wrought alloy",160.0
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,cast iron,716.1
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,concrete,18747.8
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,copper,616.7
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"electronics, for control units",100.0
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,ethylene glycol,7.0
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,glass fibre,464.6
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"polyethylene, low density, granulate",464.6
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"polypropylene, granulate",3.0
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,reinforcing steel,5134.4
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"steel, chromium steel 18/8",6697.8
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"steel, low-alloyed",6075.6
+"H2 Electrolyzer, AEC",gerloff_2021,balance of plant,"tube insulation, elastomere",207.9
+"H2 Electrolyzer, AEC",gerloff_2021,stack,nickel,2884.9
+"H2 Electrolyzer, AEC",gerloff_2021,stack,polysulfone,48.8
+"H2 Electrolyzer, AEC",gerloff_2021,stack,"steel, chromium steel 18/8",20194.4
+"H2 Electrolyzer, AEC",gerloff_2021,stack,tetrafluoroethylene,144.2
+"H2 Electrolyzer, AEC",gerloff_2021,stack,zirconium oxide,73.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"aluminium, wrought alloy",260.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,cast iron,600.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,concrete,5600.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,copper,345.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"electronics, for control units",100.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,ethylene glycol,7.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,lubricating oil,100.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"polyethylene, low density, granulate",464.6
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"polypropylene, granulate",300.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,reinforcing steel,3312.3
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"steel, chromium steel 18/8",4327.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"steel, low-alloyed",3150.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"tube insulation, elastomere",115.0
+"H2 Electrolyzer, PEM",gerloff_2021,balance of plant,"zeolite, powder",100.0
+"H2 Electrolyzer, PEM",gerloff_2021,stack,"aluminium, wrought alloy",27.0
+"H2 Electrolyzer, PEM",gerloff_2021,stack,carbon black,9.0
+"H2 Electrolyzer, PEM",gerloff_2021,stack,copper,4.5
+"H2 Electrolyzer, PEM",gerloff_2021,stack,iridium,0.8
+"H2 Electrolyzer, PEM",gerloff_2021,stack,platinum,0.075
+"H2 Electrolyzer, PEM",gerloff_2021,stack,"steel, chromium steel 18/8",100.0
+"H2 Electrolyzer, PEM",gerloff_2021,stack,synthetic rubber,4.8
+"H2 Electrolyzer, PEM",gerloff_2021,stack,tetrafluoroethylene,16.0
+"H2 Electrolyzer, PEM",gerloff_2021,stack,titanium,528.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,acrylonitrile-butadiene-styrene copolymer,1.4
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,"aluminium, wrought alloy",401.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,cast iron,3000.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,concrete,5600.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,copper,428.5
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,"electronics, for control units",100.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,ethylene glycol,35.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,"polyethylene, low density, granulate",534.0
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,reinforcing steel,13730.6
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,"steel, chromium steel 18/8",16621.4
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,"steel, low-alloyed",3753.6
+"H2 Electrolyzer, SOEC",gerloff_2021,balance of plant,"tube insulation, elastomere",176.6
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,aluminium oxide,6.4
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,barium oxide,6.4
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,boric oxide,6.4
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,cerium oxide,91.5
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,nickel,144.1
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,praseodymium oxide,9.0
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,samarium-europium-gadolinium oxide,37.7
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,silicone product,6.4
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,"steel, chromium steel 18/8",8976.1
+"H2 Electrolyzer, SOEC",gerloff_2021,stack,zirconium oxide,170.7
+"PV, CIGS",carrara_2020,cell,copper,15.0
+"PV, CIGS",carrara_2020,cell,gallium,2.5
+"PV, CIGS",carrara_2020,cell,indium,10.0
+"PV, CIGS",carrara_2020,cell,selenium,20.0
+"PV, CIGS",carrara_2020,structure,"aluminium, wrought alloy",7200.0
+"PV, CIGS",carrara_2020,structure,concrete,58400.0
+"PV, CIGS",carrara_2020,structure,copper,4500.0
+"PV, CIGS",carrara_2020,structure,flat glass,44700.0
+"PV, CIGS",carrara_2020,structure,plastic,8300.0
+"PV, CIGS",carrara_2020,structure,"steel, low-alloyed",65300.0
+"PV, CdTe",carrara_2020,cell,cadmium,27.0
+"PV, CdTe",carrara_2020,cell,tellurium,27.0
+"PV, CdTe",carrara_2020,structure,"aluminium, wrought alloy",7200.0
+"PV, CdTe",carrara_2020,structure,concrete,58400.0
+"PV, CdTe",carrara_2020,structure,copper,4500.0
+"PV, CdTe",carrara_2020,structure,flat glass,44700.0
+"PV, CdTe",carrara_2020,structure,plastic,8300.0
+"PV, CdTe",carrara_2020,structure,"steel, low-alloyed",65300.0
+"PV, a-Si",carrara_2020,cell,germanium,27.0
+"PV, a-Si",carrara_2020,cell,silicon,100.0
+"PV, a-Si",carrara_2020,structure,"aluminium, wrought alloy",7200.0
+"PV, a-Si",carrara_2020,structure,concrete,58400.0
+"PV, a-Si",carrara_2020,structure,copper,4500.0
+"PV, a-Si",carrara_2020,structure,flat glass,44700.0
+"PV, a-Si",carrara_2020,structure,plastic,8300.0
+"PV, a-Si",carrara_2020,structure,"steel, low-alloyed",65300.0
+"PV, c-Si",carrara_2020,cell,silicon,2750.0
+"PV, c-Si",carrara_2020,cell,silver,6.0
+"PV, c-Si",carrara_2020,structure,"aluminium, wrought alloy",7200.0
+"PV, c-Si",carrara_2020,structure,concrete,58400.0
+"PV, c-Si",carrara_2020,structure,copper,4500.0
+"PV, c-Si",carrara_2020,structure,flat glass,44700.0
+"PV, c-Si",carrara_2020,structure,plastic,8300.0
+"PV, c-Si",carrara_2020,structure,"steel, low-alloyed",65300.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,"aluminium, wrought alloy",700.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,cast iron,20100.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,concrete,369000.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,copper,5000.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,dysprosium,6.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,glass fibre reinforced plastic,8100.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,neodymium,28.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,plastic,4600.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,praseodymium,9.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,"steel, low-alloyed",132000.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,terbium,1.0
+"Wind, DD-EESG",carrara_2020,turbine and foundation,zinc,5500.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,"aluminium, wrought alloy",500.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,cast iron,20100.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,concrete,243000.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,copper,3000.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,dysprosium,17.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,glass fibre reinforced plastic,8100.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,neodymium,180.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,plastic,4600.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,praseodymium,35.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,"steel, low-alloyed",119500.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,terbium,7.0
+"Wind, DD-PMSG",carrara_2020,turbine and foundation,zinc,5500.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,"aluminium, wrought alloy",1400.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,cast iron,18000.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,concrete,355000.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,copper,1400.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,dysprosium,2.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,glass fibre reinforced plastic,7700.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,neodymium,12.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,plastic,4600.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,praseodymium,0.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,"steel, low-alloyed",113000.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,terbium,0.0
+"Wind, GB-DFIG",carrara_2020,turbine and foundation,zinc,5500.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,"aluminium, wrought alloy",1600.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,cast iron,20800.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,concrete,413000.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,copper,950.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,dysprosium,6.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,glass fibre reinforced plastic,8400.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,neodymium,51.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,plastic,4600.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,praseodymium,4.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,"steel, low-alloyed",107000.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,terbium,1.0
+"Wind, GB-PMSG",carrara_2020,turbine and foundation,zinc,5500.0

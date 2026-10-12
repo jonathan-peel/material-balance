@@ -1,0 +1,3 @@
+parameter,value,unit,grid_type,source
+hvdc_reference_gw,0.7,GW,dc,"Jorge, Hawkins & Hertwich (2012), the source of the ecoinvent HVDC cable inventories; NorNed-class 450 kV bipole"
+distribution_existing_km,10000000,km,distribution,"eurelectric_2020.pdf p.16 - Distribution Grids in Europe, Facts and Figures 2020"

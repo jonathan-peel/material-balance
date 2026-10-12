@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the article below."
+title: "material-balance"
+authors:
+  - family-names: Peel
+    given-names: Jonathan N.
+    affiliation: "Institute of Environmental Decisions, ETH Zurich, Zurich, Switzerland"
+repository-code: "https://github.com/jonathan-peel/material-balance"
+license: MIT
+preferred-citation:
+  type: article
+  status: submitted
+  title: "Energy policy could curb Europe's overconsumption of critical material supply"
+  authors:
+    - family-names: Peel
+      given-names: Jonathan N.
+      affiliation: "Institute of Environmental Decisions, ETH Zurich, Zurich, Switzerland"
+    - family-names: Cotterill
+      given-names: Aysha
+      affiliation: "Institute of Environmental Decisions, ETH Zurich, Zurich, Switzerland"
+    - family-names: Chelle-Michou
+      given-names: Cyril
+      affiliation: "Institute for Geochemistry and Petrology, ETH Zurich, Zurich, Switzerland"
+    - family-names: Patt
+      given-names: Anthony
+      affiliation: "Institute of Environmental Decisions, ETH Zurich, Zurich, Switzerland"
+    - family-names: Tröndle
+      given-names: Tim
+      affiliation: "Institute of Environmental Decisions, ETH Zurich, Zurich, Switzerland"

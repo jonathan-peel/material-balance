@@ -1,0 +1,1345 @@
+window:
+  start_year: 2025
+  end_year: 2050
+
+pypsa:
+  env_architecture: osx-arm64
+  base_scenario_config: config/pypsa/config.base_s_45___2050.yaml
+
+  # Bus carriers that count as electricity when measuring capacities: capacities
+  # are taken at the port where a component connects to one of these buses.
+  electricity_bus_carriers:
+    - AC
+    - low voltage
+    - battery
+    - home battery
+    - EV battery
+
+  # How the summary charts draw carriers that no technology_info entry claims.
+  # The `top_n` largest (by total absolute value within each chart) get their
+  # own segment and legend entry; the remainder are summed into `other`
+  unmapped_display:
+    top_n: 5
+    other_nice_name: Other unmapped
+    other_color: "#d9d9d9"
+    # Greys for the individually-named carriers, darkest first (largest first).
+    colors:
+      - "#4d4d4d"
+      - "#6b6b6b"
+      - "#8a8a8a"
+      - "#a8a8a8"
+      - "#c4c4c4"
+
+  # Modelling-to-generate-alternatives: re-solve each cost-optimal network with
+  # the total extendable capacity of `carriers` as the objective, letting total
+  # system cost rise by up to `slack` above the optimum. Carriers are listed
+  # explicitly rather than read from technology_info, because the technology to
+  # push on is a question about the scenario, not about the metal accounting.
+  # `slack` is per scenario: how far it is worth pushing is a property of the
+  # question each variant asks, not a single setting shared across all of them.
+  mga:
+    scenarios:
+      min_wind:
+        technology: [offshore_wind, onshore_wind]
+        sense: min
+        slack: 0.15
+      min_solar:
+        technology: [utility_solar, rooftop_solar]
+        sense: min
+        slack: 0.15
+      max_nuclear:
+        technology: [nuclear]
+        sense: max
+        slack: 0.15
+
+  # measures         which quantities to read. A carrier may need more than one:
+  #                  a StorageUnit has both a power and an energy rating.
+  #   power            GW at the port touching one of electricity_bus_carriers,
+  #                    via n.statistics(bus_carrier=...). The bus filter is what
+  #                    turns a Link's p_nom -- defined at bus0, so *gas input* for
+  #                    CCGT -- into electrical MW, by applying the efficiency of
+  #                    the port that reaches the electricity bus.
+  #   energy           TWh, via the same call with storage=True.
+  #   rated_capacity   GW read straight off s_nom/p_nom. When both ports of a
+  #                    component sit on electricity buses (an AC line, a DC link,
+  #                    the AC->low-voltage distribution link) the statistics ports
+  #                    cancel and `power` returns 0 or a residual efficiency loss,
+  #                    so the nominal rating is the only honest source.
+  #   route_length     km, and GW-km, from the component's `length`. Only Line and
+  #                    Link carry one.
+  #
+  # electricity_bus  which port of a Link the electricity bus hangs off. Required
+  #                  for `power` on a Link, rejected anywhere else. This is a fact
+  #                  about the wiring, not about physical direction: a heat pump
+  #                  consumes electricity, but PyPSA-Eur wires it bus0 = heat,
+  #                  bus1 = electricity, so its electricity_bus is bus1. bus0 is
+  #                  the withdrawing port, which statistics reports negative, so
+  #                  this is also what decides the sign flip. Checked against the
+  #                  network at runtime.
+  carriers:
+    nuclear:
+      component: Generator
+      measures: [power]
+    onwind:
+      component: Generator
+      measures: [power]
+    offwind-ac:
+      component: Generator
+      measures: [power]
+    offwind-dc:
+      component: Generator
+      measures: [power]
+    solar:
+      component: Generator
+      measures: [power]
+    solar-hsat:
+      component: Generator
+      measures: [power]
+    solar rooftop:
+      component: Generator
+      measures: [power]
+    ror:
+      component: Generator
+      measures: [power]
+
+    CCGT:
+      component: Link
+      measures: [power]
+      electricity_bus: bus1
+      note: >-
+        bus0 = gas, so p_nom is fuel input; the bus1 port applies the 0.60
+        efficiency and gives electrical MW.
+    OCGT:
+      component: Link
+      measures: [power]
+      electricity_bus: bus1
+      note: as CCGT, at 0.43 efficiency.
+
+    H2 Electrolysis:
+      component: Link
+      measures: [power]
+      electricity_bus: bus0
+      note: >-
+        bus0 = AC, so p_nom is already the electrical rating and statistics
+        reports it negative -- the sign flip is what makes it a positive GW of
+        installed electrolyser.
+
+    # PyPSA-Eur wires heat pumps bus0 = heat, bus1 = electricity at efficiency 1,
+    # applying the COP elsewhere. Their capacity is therefore thermal-output GW,
+    # which is what the per-kW-thermal LCI dataset wants.
+    rural air heat pump:
+      component: Link
+      measures: [power]
+      electricity_bus: bus1
+      note: thermal-output GW, not electrical input.
+    rural ground heat pump:
+      component: Link
+      measures: [power]
+      electricity_bus: bus1
+      note: thermal-output GW, not electrical input.
+    urban central air heat pump:
+      component: Link
+      measures: [power]
+      electricity_bus: bus1
+      note: thermal-output GW, not electrical input.
+    urban decentral air heat pump:
+      component: Link
+      measures: [power]
+      electricity_bus: bus1
+      note: thermal-output GW, not electrical input.
+
+    PHS:
+      component: StorageUnit
+      measures: [power, energy]
+    hydro:
+      component: StorageUnit
+      measures: [power, energy]
+
+    battery:
+      component: Store
+      measures: [energy]
+    home battery:
+      component: Store
+      measures: [energy]
+    EV battery:
+      component: Store
+      measures: [energy]
+
+    # Grid components. Both ports of each of these sit on electricity buses, so
+    # `power` cancels and the rating has to come off the component itself.
+    AC:
+      component: Line
+      measures: [rated_capacity, route_length]
+      note: >-
+        HV AC transmission. Expansion reinforces existing corridors rather than
+        adding new ones, so route_length_km is fixed and the GW-km columns carry
+        the growth; expanded GW-km over the line type's per-circuit rating gives
+        circuit-km.
+    DC:
+      component: Link
+      measures: [rated_capacity, route_length]
+      note: >-
+        HVDC links. PyPSA-Eur stores a reversed duplicate of each one, carrying
+        full p_nom and zero length; only the forward rows are counted.
+    electricity distribution grid:
+      component: Link
+      measures: [rated_capacity]
+      note: >-
+        AC -> low-voltage distribution capacity, also reversed-duplicated. Has no
+        length, so it cannot drive a per-km inventory on its own.
+
+# Each scenario pairs a system scenario (`network_scenario` + `mga_scenario`, one
+# solved pypsa network) with a market share scenario (`market_share_scenario`, a
+# column of data/market_share_scenarios.csv).
+#
+# Scenario types:
+#   reference     the world every other scenario is measured against
+#   system        a different system scenario -- another pypsa network scenario,
+#                 or an MGA run pushed off the cost optimum. Costs system money and
+#                 is decided by the planner.
+#   substitution  the same system scenario built out of different sub-technologies,
+#                 i.e. a different market share scenario. Costs the system nothing
+#                 here and is decided by the manufacturer.
+#
+# A scenario that uses both types would have an effect that cannot be attributed to
+# either, so `check_scenario_types` in rules/compare.smk derives the type from how
+# the scenario is actually built and refuses a declaration that disagrees.
+scenarios:
+  base:
+    nice_name: Reference
+    color: "#1b1b1b"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: Market share current
+    group: reference
+    scenario_type: reference
+  na_ion_push:
+    nice_name: EV Na-ion push
+    color: "#2f6f9f"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: EV battery Na-ion
+    group: battery
+    scenario_type: substitution
+  nmc_811_push:
+    nice_name: EV NMC-811 push
+    color: "#4a9fb0"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: EV battery NMC-811
+    group: battery
+    scenario_type: substitution
+  lfp_push:
+    nice_name: EV LFP push
+    color: "#6fb0dc"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: EV battery LFP
+    group: battery
+    scenario_type: substitution
+  solar_pull:
+    nice_name: Solar pull
+    color: "#3f6b28"
+    network_scenario: base
+    mga_scenario: min_solar
+    market_share_scenario: Market share current
+    group: solar_semi
+    scenario_type: system
+  c_si_solar_push:
+    nice_name: Silicon PV push
+    color: "#7ba54a"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: Solar c-Si
+    group: solar_semi
+    scenario_type: substitution
+  wind_pull:
+    nice_name: Wind pull
+    color: "#8f1520"
+    network_scenario: base
+    mga_scenario: min_wind
+    market_share_scenario: Market share current
+    group: magnet
+    scenario_type: system
+  ev_motor_magnet_pull:
+    nice_name: EV magnet pull
+    color: "#c2564a"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: EV magnet pull
+    group: magnet
+    scenario_type: substitution
+  wind_magnet_pull:
+    nice_name: Wind magnet pull
+    color: "#d97b6c"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: Wind magnet pull
+    group: magnet
+    scenario_type: substitution
+  grid_aluminium_push:
+    nice_name: Grid aluminium push
+    color: "#b8860b"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: Grid aluminium wiring
+    group: grid
+    scenario_type: substitution
+  h2_and_v2g:
+    nice_name: H2 and V2G
+    color: "#14405e"
+    network_scenario: reduce_storage
+    mga_scenario: null
+    market_share_scenario: Market share current
+    group: general
+    scenario_type: system
+  nuclear_push:
+    nice_name: Nuclear push
+    color: "#4a4a4a"
+    network_scenario: base
+    mga_scenario: max_nuclear
+    market_share_scenario: Market share current
+    group: general
+    scenario_type: system
+  pem_pull:
+    nice_name: Electrolyser PEM pull
+    color: "#3f8f8a"
+    network_scenario: base
+    mga_scenario: null
+    market_share_scenario: Electrolyser PEM-free
+    group: pgm
+    scenario_type: substitution
+
+# Block order and display name only; membership is each scenario's own `group`.
+scenario_groups:
+  reference:
+    nice_name: Reference
+  battery:
+    nice_name: Battery
+  magnet:
+    nice_name: Magnet REEs
+  solar_semi:
+    nice_name: Solar/semiconductor
+  grid:
+    nice_name: Grid conductor
+  pgm:
+    nice_name: Pt group metals
+  general:
+    nice_name: General
+
+# Display name and hue per end-use group of metals; the twin of scenario_groups
+# above. Membership and order are each metal's `group` in data/mineral_info.csv,
+# so a group is renamed on every figure by editing its `nice_name` here. `helper`
+# has no entry: those rows are supply-side hosts, never drawn.
+# Each hue is that of the technology_info family the group serves (grid, solar,
+# EV battery, wind, H2 electrolysis), set between OKLab lightness 0.43 and 0.63 so
+# every name stays legible as text. Solar is pushed towards orange, clear of the
+# per-capita supply line. Dual-use serves no one family and is grey, darker than
+# the other-sector band's greys.
+mineral_groups:
+  grid_conductor:
+    nice_name: Conductor
+    color: "#52379f"
+  solar_semiconductor:
+    nice_name: Semiconductor
+    color: "#c56c0c"
+  battery:
+    nice_name: Battery
+    color: "#0e9293"
+  magnet_rees:
+    nice_name: Magnet REEs
+    color: "#0970b4"
+  h2_pgm_catalysts:
+    nice_name: Catalyst
+    color: "#9e3379"
+  dual_use:
+    nice_name: Dual-use
+    color: "#5b5b5b"
+
+# `lci` directs the sub-technology to a row of data/lci_info.csv; `derived` scales
+# another sub-technology's row by data/motor_substitution_info.csv.
+sub_technology_info:
+  "Nuclear, PWR": lci
+  "Wind, GB-DFIG": lci
+  "Wind, GB-PMSG": lci
+  "Wind, DD-PMSG": lci
+  "Wind, DD-EESG": lci
+  "PV, c-Si": lci
+  "PV, CdTe": lci
+  "PV, a-Si": lci
+  "PV, CIGS": lci
+  "Gas power plant, CC": lci
+  "Gas power plant, OC": lci
+  "H2 Electrolyzer, AEC": lci
+  "H2 Electrolyzer, PEM": lci
+  "H2 Electrolyzer, SOEC": lci
+  "Heat pump": lci
+  "Battery, NMC111, stationary": lci
+  "Battery, NMC532, stationary": lci
+  "Battery, LFP, stationary": lci
+  "Battery, NMC111": lci
+  "Battery, NMC532": lci
+  "Battery, NMC622": lci
+  "Battery, NMC811": lci
+  "Battery, LFP": lci
+  "Battery, NCA": lci
+  "Battery, Na-ion": lci
+  "EV motor, PM": lci
+  "EV motor, induction": derived
+  # Per-km grid inventories. The ecoinvent transmission/distribution datasets are
+  # each "1 km of network", so their functional unit is a capacity-equivalent km of
+  # line/cable (km of reference-rated conductor carrying the modelled growth).
+  "Grid line, HV AC": lci
+  "Grid cable, HVDC subsea": lci
+  "Grid cable, HVDC land": lci
+  "Grid line, MV": lci
+  "Grid line, LV": lci
+  # The same five datasets with the conductor copper swapped for aluminium, derived
+  # by rule build_conductor_substitution_db (ecoinvent has no such variant).
+  "Grid line, HV AC (Al)": lci
+  "Grid cable, HVDC subsea (Al)": lci
+  "Grid cable, HVDC land (Al)": lci
+  "Grid line, MV (Al)": lci
+  "Grid line, LV (Al)": lci
+
+# The rows of data/market_share_scenarios.csv must match these (sub_technology,
+# technology) pairs exactly.
+# An empty `sub_technologies` list marks a technology with no mineral intensity.
+technology_info:
+  nuclear:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [nuclear]
+    nice_name: Nuclear
+    color: "#a83b52"
+    sub_technologies: ["Nuclear, PWR"]
+  offshore_wind:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [offwind-ac, offwind-dc]
+    nice_name: Wind, offshore
+    color: "#0d4f8b"
+    sub_technologies: ["Wind, GB-DFIG", "Wind, GB-PMSG", "Wind, DD-PMSG", "Wind, DD-EESG"]
+  onshore_wind:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [onwind]
+    nice_name: Wind, onshore
+    color: "#4a92cf"
+    sub_technologies: ["Wind, GB-DFIG", "Wind, GB-PMSG", "Wind, DD-PMSG", "Wind, DD-EESG"]
+  utility_solar:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [solar, solar-hsat]
+    nice_name: Solar, utility
+    color: "#c98a0a"
+    sub_technologies: ["PV, c-Si", "PV, CdTe", "PV, a-Si", "PV, CIGS"]
+  rooftop_solar:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [solar rooftop]
+    nice_name: Solar, rooftop
+    color: "#f6d477"
+    sub_technologies: ["PV, c-Si", "PV, CdTe", "PV, a-Si", "PV, CIGS"]
+  ccgt:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [CCGT]
+    nice_name: Gas plant, combined-cycle
+    color: "#6b4a2f"
+    sub_technologies: ["Gas power plant, CC"]
+  ocgt:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [OCGT]
+    nice_name: Gas plant, open-cycle
+    color: "#b18a62"
+    sub_technologies: ["Gas power plant, OC"]
+  h2_electrolysis:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [H2 Electrolysis]
+    nice_name: H₂ electrolysis
+    color: "#d94fa8"
+    sub_technologies:
+      - "H2 Electrolyzer, AEC"
+      - "H2 Electrolyzer, PEM"
+      - "H2 Electrolyzer, SOEC"
+  heat_pump:
+    capacity_source: pypsa_eur
+    pypsa_carriers:
+      - rural air heat pump
+      - rural ground heat pump
+      - urban central air heat pump
+      - urban decentral air heat pump
+    nice_name: Heat pump
+    color: "#f2662e"
+    sub_technologies: ["Heat pump"]
+  grid_battery:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [battery, home battery]
+    nice_name: Stationary battery
+    color: "#1a6b3f"
+    sub_technologies:
+      - "Battery, NMC111, stationary"
+      - "Battery, NMC532, stationary"
+      - "Battery, LFP, stationary"
+  pumped_hydro:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [PHS]
+    nice_name: Pumped hydro
+    color: "#3f7285"
+    sub_technologies: []
+  dammed_hydro:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [hydro]
+    nice_name: Dammed hydroelectric
+    color: "#79a9bd"
+    sub_technologies: []
+  run_of_river:
+    capacity_source: pypsa_eur
+    pypsa_carriers: [ror]
+    nice_name: Run-of-river hydro
+    color: "#bcd6df"
+    sub_technologies: []
+  grid_hv_ac:
+    capacity_source: grid
+    grid_type: hv_ac
+    pypsa_carriers: [AC]
+    nice_name: Grid, high-voltage AC
+    color: "#4a3d8f"
+    sub_technologies: ["Grid line, HV AC", "Grid line, HV AC (Al)"]
+  grid_dc:
+    capacity_source: grid
+    grid_type: dc
+    pypsa_carriers: [DC]
+    nice_name: Grid, high-voltage DC
+    color: "#7d6cc8"
+    sub_technologies:
+      ["Grid cable, HVDC subsea", "Grid cable, HVDC land",
+       "Grid cable, HVDC subsea (Al)", "Grid cable, HVDC land (Al)"]
+  grid_distribution:
+    capacity_source: grid
+    grid_type: distribution
+    pypsa_carriers: [electricity distribution grid]
+    nice_name: Grid, distribution
+    color: "#c0b9e3"
+    # PyPSA's single distribution link stands for everything below the HV
+    # transmission grid, which in reality spans three voltage levels with very
+    # different per-km inventories. The CH "high voltage" dataset covers >24 kV,
+    # so it stands in for 36-150 kV sub-transmission.
+    sub_technologies:
+      ["Grid line, HV AC", "Grid line, MV", "Grid line, LV",
+       "Grid line, HV AC (Al)", "Grid line, MV (Al)", "Grid line, LV (Al)"]
+  ev_battery:
+    capacity_source: ev_batteries
+    pypsa_carriers: [EV battery]
+    nice_name: EV battery
+    color: "#0e7f80"
+    sub_technologies:
+      - "Battery, NMC111"
+      - "Battery, NMC532"
+      - "Battery, NMC622"
+      - "Battery, NMC811"
+      - "Battery, LFP"
+      - "Battery, NCA"
+      - "Battery, Na-ion"
+  ev_motor:
+    capacity_source: ev_fleet
+    pypsa_carriers: []
+    nice_name: EV motor
+    color: "#63bfc2"
+    sub_technologies: ["EV motor, PM", "EV motor, induction"]
+
+plotting:
+  # A4 less a 25 mm margin. Every figure is this wide, so the absolute point
+  # sizes below are the point sizes on the page.
+  page_width: &page_width 6.3
+
+  # A4 less the same margin top and bottom: where `paged_grid` cuts a grid of
+  # panels too long for one page.
+  page_height: 9.7
+
+  # Passed verbatim to matplotlib.rcParams. fonttype 42 embeds TrueType rather
+  # than Type 3, which is what journal submission systems require.
+  rcparams:
+    figure.facecolor: "#ffffff"
+    savefig.facecolor: "#ffffff"
+    font.family: sans-serif
+    font.sans-serif: ["Helvetica Neue", Helvetica, Arial, "DejaVu Sans"]
+    font.size: 7.5
+    axes.titlesize: 8.5
+    axes.labelsize: 7.0
+    xtick.labelsize: 6.5
+    ytick.labelsize: 6.5
+    legend.fontsize: 7.0
+    # The end-use group heading over a row of panels.
+    figure.titlesize: 10.5
+    figure.titleweight: bold
+    axes.linewidth: 0.6
+    xtick.major.width: 0.6
+    ytick.major.width: 0.6
+    xtick.major.size: 2.5
+    ytick.major.size: 2.5
+    xtick.minor.size: 1.4
+    ytick.minor.size: 1.4
+    lines.linewidth: 1.2
+    hatch.linewidth: 0.5
+    pdf.fonttype: 42
+    ps.fonttype: 42
+
+  # Greys. Nothing in the data ever takes one of these, so a grey always means
+  # chrome or a quantity that is deliberately not colour-coded.
+  ink:
+    primary: "#1b1b1b"
+    secondary: "#4a4a4a"
+    muted: "#8c8c8c"
+    grid: "#e4e4e4"
+    surface: "#ffffff"
+
+  bar:
+    # Blank space inserted between two groups of bars, in bar widths — scenario
+    # groups on a panel's own axis, end-use groups on the one axes Fig. 1 puts
+    # every metal on. The bar width itself belongs to the panel it is drawn in,
+    # below.
+    group_gap: 0.9
+    # A hairline of surface between stack segments; what separates two adjacent
+    # lightness steps of the same hue family.
+    edge_color: "#ffffff"
+    edge_width: 0.5
+
+  # Wide enough for a scenario axis: thirteen rotated bar labels, and in
+  # metal_demand.ipynb a value printed over every bar. `max_columns: null` gives
+  # every end-use group a row to itself, however few panels it has.
+  panel:
+    width: 4.4
+    height: 3.4
+    bar_width: 0.68
+    max_columns: null
+    group_gap: 0.35
+    # Degrees the bar labels are turned. 45 is what a wide bar affords; see
+    # metal_axis for why a narrow one does not.
+    label_rotation: 45
+
+  # Panels carrying a single bar rather than a whole scenario axis. Groups are
+  # packed onto a shared row while they fit inside `max_columns`. `group_gap` is
+  # blank space in panel widths, inserted where one group ends and the next begins
+  # on the same row, so the grouping survives the packing; every row reserves the
+  # same number of gaps, so a panel is the same width in all of them.
+  narrow_panel:
+    # Seven across plus the one group gap a row reserves is 7.35 panel widths,
+    # and that has to be the page: 6.3 / 7.35.
+    width: 0.857
+    height: 1.35
+    bar_width: 0.5
+    max_columns: 7
+    group_gap: 0.35
+    label_rotation: 45
+
+  # One axes carrying every metal as a bar, rather than every metal as a panel.
+  # `group_axis` measures the metal names and sets its rule beyond the longest, so
+  # both gaps are blank space: `group_rule_gap` between the names and the rule,
+  # `group_name_gap` between the rule and the end-use group it names.
+  metal_axis:
+    width: *page_width
+    height: 3.6
+    bar_width: 0.62
+    label_rotation: 90
+    group_rule_gap: 7.0
+    group_name_gap: 1.5
+    group_label_floor: 6.0
+
+  # The same axes turned on its side (Fig. 1). The height is the bar axis, bought
+  # at `bar_pitch` an inch a bar plus `chrome` for the value axis. `chrome` is that
+  # axis alone — the supply names sit outside it, on the tight bounding box — so
+  # set it to what the axis takes, or the bars miss pitch.
+  metal_axis_turned:
+    width: *page_width
+    bar_pitch: 0.185
+    chrome: 0.71
+    bar_width: 0.62
+    label_rotation: 0
+    group_rule_gap: 7.0
+    group_name_gap: 1.5
+    group_label_floor: 6.0
+
+  # For Fig 0
+  metal_panel:
+    width: *page_width
+    # Eight across puts the 24 metals in three rows, which leaves an A4 page
+    # room for a heading and caption.
+    max_columns: 8
+    # The scenario names, drawn once at the left of each row.
+    label_width: 1.15
+    label_size: &metal_panel_label_size 6.0
+    bar_pitch: 0.095
+    bar_width: 0.62
+    # The metal over its panel. The longest name here (praseodymium) has to fit
+    # an eighth of the row, or it runs over the metal beside it.
+    title_size: &metal_panel_title_size 6.0
+    # Blank between two scenario groups, in bars. Smaller than bar.group_gap
+    # because here it is bought with page: a row is as tall as its bar axis.
+    group_gap: 0.3
+    label_rotation: 0
+
+    panel_gap: 0.10
+    boundary_gap: 0.20
+
+    value_ticks: 3
+    # Spacing a row spends on names over and under its panels
+    row_chrome: 0.66
+    row_gap: 0.06
+    band: &metal_panel_band
+      pad: 3.0
+      width: 1.8
+      size: 6.0
+
+  # One geometry for every notebook but supply_and_demand.ipynb: a figure is
+  # `page_width` wide and `aspect` of that tall, and a grid of panels divides
+  # that width into at most `max_columns`, each `panel_aspect` of its own width
+  # tall. Height is bought a row at a time, so a big grid runs down the page.
+  supplement:
+    aspect: 0.48
+    panel_aspect: 0.78
+    max_columns: 3
+    # For a panel whose height follows its bars: an inch per bar, plus
+    # `panel_chrome` for the title, the axis and its name.
+    row_pitch: 0.17
+    panel_chrome: 0.85
+    # A row of a one-column grid: a page-wide panel carrying a category axis of
+    # slanted names, so its height is what that axis needs.
+    wide_row: 2.3
+    # `paged_cell_grid`: `cell_gap` is the blank between two cells, in the same
+    # units as a cell's width ratios, and `cell_row` its row height.
+    cell_gap: 0.5
+    cell_row: 1.38
+
+  # notebooks/lci_intensity.ipynb's two ranking figures, a panel per mineral or
+  # per technology: `columns` across and `rows` down each page. `unit_names` is
+  # how each functional unit of data/lci_info.csv reads after "kg per"; `unit` is
+  # the EV motors' alone.
+  lci_ranking:
+    columns: 3
+    rows: 4
+    unit_names: {MW: MW, MWh: MWh, km: km, unit: motor}
+
+  # The solved networks on a map (notebooks/pypsa_maps.ipynb): a pie of the
+  # `generation` technologies at each cluster over the AC lines and DC links.
+  # Pie area and line width are both linear in GW. Each line is drawn at its
+  # final rating at `reinforcement_alpha` with its existing rating on top, so
+  # the pale margin is the reinforcement.
+  network_map:
+    generation: [nuclear, offshore_wind, onshore_wind, utility_solar,
+      rooftop_solar, ccgt, ocgt, dammed_hydro, run_of_river]
+    projection: EqualEarth
+    # lon min, lon max, lat min, lat max
+    boundaries: [-11, 31, 35.5, 71]
+    panel_aspect: 0.9
+    max_columns: 2
+    gw_per_square_degree: 150
+    gw_per_point: 6
+    reinforcement_alpha: 0.35
+    capacity_key_gw: [500, 200, 50]
+    # Legend label spacing, in font sizes, that keeps the largest circle clear
+    # of the next.
+    capacity_key_spacing: 2.5
+    width_key_gw: [20, 5]
+    # PyPSA's own geomap defaults, so the study region map matches the network maps.
+    geomap_resolution: 50m
+    border_width: 0.3
+
+  # notebooks/market_shares.ipynb, an SI page: a block per technology, its
+  # sub-technologies named in a column against a pie per market share scenario,
+  # the reference first. Blocks are placed first-fit on rows `width` wide. Text
+  # and band are Fig. 0's. A sub-technology takes the `palette` slot of its
+  # position in technology_info's `sub_technologies`, in an order that keeps
+  # adjacent wedges apart under colour-vision deficiency; `names` is what the
+  # legend calls it, the band over the pies naming the technology.
+  market_share:
+    width: *page_width
+    legend_width: 0.8
+    pie_width: 1.05
+    block_gap: 0.25
+    row_height: 1.25
+    row_gap: 0.06
+    label_size: *metal_panel_label_size
+    title_size: *metal_panel_title_size
+    band: *metal_panel_band
+    palette: ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300",
+      "#4a3aa7", "#e34948"]
+    names:
+      "Wind, GB-DFIG": GB-DFIG
+      "Wind, GB-PMSG": GB-PMSG
+      "Wind, DD-PMSG": DD-PMSG
+      "Wind, DD-EESG": DD-EESG
+      "PV, c-Si": c-Si
+      "PV, CdTe": CdTe
+      "PV, a-Si": a-Si
+      "PV, CIGS": CIGS
+      "H2 Electrolyzer, AEC": AEC
+      "H2 Electrolyzer, PEM": PEM
+      "H2 Electrolyzer, SOEC": SOEC
+      "Battery, NMC111, stationary": NMC111
+      "Battery, NMC532, stationary": NMC532
+      "Battery, LFP, stationary": LFP
+      "Grid line, HV AC": HV, Cu
+      "Grid line, MV": MV, Cu
+      "Grid line, LV": LV, Cu
+      "Grid line, HV AC (Al)": HV, Al
+      "Grid line, MV (Al)": MV, Al
+      "Grid line, LV (Al)": LV, Al
+      "Grid cable, HVDC subsea": Subsea, Cu
+      "Grid cable, HVDC land": Land, Cu
+      "Grid cable, HVDC subsea (Al)": Subsea, Al
+      "Grid cable, HVDC land (Al)": Land, Al
+      "Battery, NMC111": NMC111
+      "Battery, NMC532": NMC532
+      "Battery, NMC622": NMC622
+      "Battery, NMC811": NMC811
+      "Battery, LFP": LFP
+      "Battery, NCA": NCA
+      "Battery, Na-ion": Na-ion
+      "EV motor, PM": Permanent magnet
+      "EV motor, induction": Induction
+
+  savefig:
+    dpi: 400
+    formats: [png, pdf]
+
+lci:
+  project: metal-snapshots
+
+  ecoinvent:
+    version: "3.10"
+    system_model: cutoff
+    biosphere_name: biosphere
+
+  premise_scenario:
+    model: tiam-ucl
+    pathway: SSP2-RCP19
+    # The PV rows of data/bill_of_materials.csv are Carrara's MDS column for this year.
+    year: 2030
+
+  # A mineral's `in ground` flow counts as demand only along routes
+  # data/lci_route_info.csv declares `embodied` (see RouteInfo). Undeclared routes are
+  # dropped without error unless they exceed this quantity.
+  route_declaration_threshold: 0.001
+
+# Which metals the study tracks and why, governed by rules/metals.smk as audit only.
+# Nothing outside that module consumes these outputs.
+#
+# A metal is selected by a union of two screens, either sufficient:
+#   policy      on the EU CRMA strategic list, i.e. Annex I (data/metal_screen_policy.csv)
+#               and identified as a foreground material of a technology in this set.
+#   literature  energy-transition-led demand reaches `threshold` of projected primary
+#               production capacity in Bieuville et al. 2026
+#               (build/metals/literature_screen.csv). An exposure measure, not a
+#               shortage test -- the shortage verdict is the study's own, in compare.
+metals:
+  threshold: 0.05
+  sensitivity_thresholds: [0.025, 0.05, 0.075, 0.10]
+
+  plotting:
+    screen_color:
+      policy: "#0f4c81"
+      literature: "#d95f02"
+      both: "#5c3d8f"
+      neither: "#c4c4c4"
+    # Metals in data/metal_excluded.csv: considered, declared, not tracked.
+    excluded_color: "#8c8c8c"
+    threshold_line_color: "#8f1520"
+    # A metal below this is drawn at the floor, marked, and abelled with the value
+    floor_percent: 0.3
+    label:
+      offset: [7.0, 11.0]
+      size: 6.0
+      clearance: 18.0
+      gap: 0.0
+      # The ladder of placements: the offset, and the offset stepped out by these
+      # multiples in each direction, so a crowded name walks out into whatever
+      # room the panel has rather than overprinting what is at its own corner.
+      reach: [1.0, 2.0, 3.2, 4.8, 6.5]
+      # What each placement costs, per unit of the name covered
+      cost:
+        overprint: 4.0
+        crossing: 2.0
+        spill: 12.0
+        ambiguity: 1.0
+        drift: 0.5
+        leftward: 0.0
+    panel:
+      width: *page_width
+      height: 4.2
+    # The screen scatter carries a name against every point, so it is the
+    # tallest figure here.
+    scatter_panel:
+      width: *page_width
+      height: 5.4
+
+# Processing of raw sources into metal-supply datasets (rules/supply.smk).
+supply:
+  # First year of the averaging window (up until window.start_year)
+  averaging_base_year: 2000
+
+# Non-energy (other-sector) metal demand (rules/ned.smk). Which basis each metal
+# takes, and which world series anchors it if that basis is `gdp`, is in
+# data/mineral_info.csv.
+ned:
+  # Which national indicator carries an MSA consumption level from the region the
+  # report describes (the EU-27, or the EU-28 for the pre-Brexit 2018 batch) to
+  # the modelled country set. GDP, because consumption tracks economic activity
+  # and it is the indicator the level is then projected on. One of
+  # population / gdp / energy (scripts/info_schemas.py:Indicator).
+  region_scaling_indicator: gdp
+
+  # Where a world series is read for a metal no MSA chapter covers: the last year
+  # Schlichenmaier reports as history (it grows every metal at one rate after
+  # it), and the base year of Bieuville's projection.
+  world_anchor_year:
+    schlichenmaier: 2019
+    bieuville: 2020
+
+  plotting:
+    reference_line_color: "#8f1520" # The metal-blind allocation share
+
+    basis_color:
+      msa: "#0f4c81"
+      msa_aggregate: "#5c3d8f"
+      gdp: "#d95f02"
+
+    energy_transition_hatch: "///"
+    transition_displaced_hatch: "xxx"
+    off_grade_hatch: "\\\\"
+
+    # The end-use figure colours by *sector* (EndUseSector), not by the reports'
+    # own application labels: those run to 80 over 14 materials, nearly all of
+    # them one report's name for one material's use, so colour could never carry
+    # them. data/msa_end_use_info.csv maps each onto this vocabulary instead.
+
+    sector_color:
+      construction: "#2a78d6"
+      transport: "#1baf7a"
+      industry_steel: "#eda100"
+      electronics_optics: "#008300"
+      batteries: "#4a3aa7"
+      magnets: "#b5479b"
+      chemicals_glass: "#e34948"
+      other: "#dcdcdc" # gray as remainder - do not drop
+    label_coverage: 0.80
+    sector_nice_name:
+      construction: Construction
+      transport: Transport
+      industry_steel: Industry & steel
+      electronics_optics: Electronics & optics
+      batteries: Batteries
+      magnets: Magnets
+      chemicals_glass: Chemicals, glass & ceramics
+      other: Consumer & other
+    panel:
+      width: *page_width
+      height: 4.0
+
+evs:
+  ev_lifetime_years: 15
+
+compare:
+  # Metals held out of the demand-vs-supply figures
+  excluded_metals: []
+
+  # The reference world every figure measures from, and the principle the ratios
+  # are expressed against.
+  base_scenario: base
+  reference_method: gdp
+
+  # The least energy-system demand from any feasible combination of scenarios
+  max_reduction:
+    nice_name: Max reduction
+    # floor to exclude insignifant scenarios resulting from Premise background LCI
+    material_percent: 1.0
+
+  # How each allocation principle is drawn, and what a figure calls it. Only the
+  # supply lines are keyed by principle: other-sector demand does not vary
+  # along that dimension (see rules/ned.smk), so it is styled once, below.
+  # A supply line takes the colour of the Fig. 2 band its parity opens
+  # (`scenario_effects.matrix.bands`).
+  allocation_style:
+    per_capita_energy_corrected:
+      nice_name: Per-cap-reduced
+      supply_color: "#2b455b"
+      supply_linestyle: "--"
+    per_capita:
+      nice_name: Per-capita
+      supply_color: "#b58a3a"
+      supply_linestyle: "--"
+    gdp:
+      nice_name: GDP
+      supply_color: "#a85331"
+      supply_linestyle: "--"
+
+  # Demand from sectors outside the modelled energy transition. It is not one of
+  # the technologies, so it is drawn in neutral grey rather than taking a hue —
+  # one band, in one colour, on every figure that carries it.
+  non_energy:
+    nice_name: Non-energy demand
+    color: "#c4c4c4"
+    edge_color: "#7a7a7a"
+    confidence:
+      high:
+        nice_name: high
+        color: "#b1b1b1"
+        hatch: ""
+      medium:
+        nice_name: medium
+        color: "#c6c6c6"
+        hatch: ""
+      low:
+        nice_name: low
+        color: "#e9e9e9"
+        hatch: ""
+
+  # The shared y-axis of the two share-of-world-supply figures, as a percentage.
+  # The cap is set low deliberately: the tallest bars are tall because of
+  # other-sector demand, which no scenario in this study reaches, and an axis fitted
+  # to them costs the energy stacks most of their height.
+  share_axis:
+    cap_percent: 50
+    # Fig. 1 (a panel per metal) gives a panel that does not fit the shared scale
+    # its own, and rules the shared cap across it so the break is visible.
+    exceeded_color: "#8c8c8c"
+    exceeded_label: Axis extended past the shared scale
+    # Fig. 1c (one axes) cannot do that, so it cuts the bar instead. The marks go
+    # `offset_bars` along the category axis rather than over the bar, which keeps
+    # the cut bar readable for its whole length.
+    overrun:
+      color: "#1b1b1b"
+      marker_size: 5.0
+      format: "{:.0f}%"
+      offset_bars: -0.85
+      label_offset: 2.0
+      label_size: 7.0
+      legend_label: Bar cut; number where it would reach
+      # The key's lower right corner, in axes fractions: inside the panel, in the
+      # corner the short bars at the foot of the axis leave empty.
+      key_anchor: [1.0, 0.03]
+
+  # How hard a metal's supply is to scale up, which is what the figures encode: the
+  # first class needs a new mine and the second does not.
+  metal_types:
+    primary:
+      nice_name: Primary
+      types: ["Primary"]
+      class: primary_co_product
+      marker: "o"
+    co_product:
+      nice_name: Co-product
+      types:
+        - "Co-product (value driver)"
+        - "REE co-product (value driver)"
+        - "REE co-product (follower)"
+      # Worse than primary, not better: output follows the value driver's economics
+      class: primary_co_product
+      marker: "s"
+    by_product:
+      nice_name: By-product
+      types: ["By-product"]
+      # Recovery capacity at a host already mined, and most sit far below what
+      # their host ore contains. Iridium is the exception: its PGM host binds.
+      class: by_product_synthetic
+      marker: "^"
+    by_product_dom:
+      nice_name: By-/co-product
+      types: ["Other (mostly by-product but multi-source)"]
+      # Molybdenum, silver, vanadium all by-product dominated
+      class: by_product_synthetic
+      marker: "D"
+    synthetic_option:
+      nice_name: Primary with synthetic option
+      types: ["Primary with synthetic option"]
+      # Graphite: the anode can come off a graphitisation line instead of an orebody
+      class: by_product_synthetic
+      marker: "P"
+
+  # Fig. 3 draws each class in its own `marker`. `marker_scale` multiplies the
+  # marker area so different shapes read as one size (a triangle covers 64% of a
+  # circle at one `s`); `outline_scale` thickens the open marker's ring, which
+  # with the bold name keeps the primary class the stronger of the two.
+  metal_type_classes:
+    primary_co_product:
+      nice_name: Primary / co-product
+      marker: "o"
+      marker_scale: 1.0
+      outline_scale: 1.3
+      label_ink: primary
+      label_weight: bold
+      label_style: normal
+    by_product_synthetic:
+      nice_name: By-product / synthetic option
+      marker: "o"
+      marker_scale: 1.0
+      outline_scale: 0.65
+      label_ink: primary
+      label_weight: normal
+      label_style: normal
+
+  # Fig. 2: one point per metal, traced from the reference scenario to the least demand
+  positions:
+    # Cluster of metal type, tested in a downwards ladder following the order below
+    cluster:
+      within_supply:
+        nice_name: Within allocated supply
+        color: "#8a9aa5"
+      scenario_closed:
+        nice_name: Closed by technology choice
+        color: "#3f8f6f"
+      scenario_short:
+        nice_name: Short in every scenario
+        color: "#d98c3f"
+      demand_floor_short:
+        nice_name: Short before the transition
+        color: "#6b2737"
+
+    # A metal's trace from initial demand (hollow marker) to mitigated (solid).
+    # A point takes its class's marker; `marker` draws the key's two fill entries.
+    # `size` is the filled marker's area; the hollow one is drawn to the same extent.
+    trace:
+      marker: "o"
+      size: 46
+      edge_width: 1.0
+      line_width: 1.0
+      alpha: 0.55
+      # Traces shorter than this fraction of the x range keep their arrow head but
+      # get no open marker: the two ends would overprint into a smudge.
+      minimum_visible: 0.012
+
+    # Metal names, offset off their base marker so the point stays visible. Where
+    # that corner is taken the name mirrors into another quadrant of its point
+    # and then steps out along `reach`, which is what keeps the crowded corner of
+    # the scatter readable. `clearance` is the width in points kept clear around
+    # a marker.
+    label:
+      offset: [4.0, 3.0]
+      size: 7.5
+      clearance: 7.0
+      # Points kept clear around a placed name, so two names never run together.
+      gap: 2.0
+      # Written as their `short_name` from data/mineral_info.csv, where the panel is
+      # most crowded; every other metal is named in full.
+      abbreviated: [Molybdenum, Niobium, Manganese, Gallium, Indium]
+      # Names held to one side of their point where the scoring's pick reads worse:
+      # left, right, above or below.
+      pinned:
+        Vanadium: left
+        Selenium: right
+        Lithium: right
+      # The ladder of placements: the offset, and the offset stepped out by these
+      # multiples in each direction, so a crowded name walks out into whatever
+      # room the panel has rather than overprinting what is at its own corner.
+      reach: [1.0, 2.0, 3.2, 4.8, 6.5]
+      # What each placement costs, per unit of the name covered by a marker or
+      # another name, cut through by a trace or a rule, or hanging outside the
+      # panel -- and per offset-length it drifts out from its point, or that
+      # somebody else's marker is nearer to it than its own; and once for sitting
+      # left of it. A hairline under a name can be read through, a name over it
+      # cannot, and a name that has walked out to sit by the wrong dot is worse
+      # than either.
+      cost:
+        overprint: 4.0
+        crossing: 2.0
+        spill: 12.0
+        ambiguity: 1.0
+        drift: 0.5
+        leftward: 1.0
+
+    # The quadrant split. `parity` is the y level demand meets allocated supply at
+    # (1 on the total-demand axis, 100 on the energy-only percentage axis, both
+    # after the reference principle's division). `energy_share` is the x split
+    # between metals the transition dominates and metals it barely figures in.
+    quadrants:
+      energy_share_percent: 50
+      color: "#8c8c8c"
+      annotate: true
+
+    # A light rule down the panel at this energy-system share.
+    share_rule:
+      percent: 10
+      color: "#c8c8c8"
+      linewidth: 0.8
+      linestyle: "--"
+
+    # Room left of zero for the names of metals at a share near zero
+    x_limits: [-12, 103]
+    # The longest supply line's name goes under its line, so the right margin is
+    # only as wide as the next longest needs.
+    tuck_longest_line_name: true
+
+    panel:
+      width: 6.3
+      height: 5.4
+
+  # Fig. 1b: the other-sector floor, and how far the scenarios move what stands on it
+  floor:
+    # `shortfall` puts the worst-off metal first, which is what makes the floors
+    # read as a ranking. `group` instead keeps the end-use order of Figs. 0 and 1.
+    sort_by: shortfall
+    cap: 10.0
+
+    # The scenario range, drawn on top of the reference stack.
+    whisker:
+      color: "#1b1b1b"
+      line_width: 1.1
+      cap_width: 0.30
+      alpha: 0.85
+      overrun_format: "{:.0f}x"
+
+  # Fig. 3: what each scenario does, measured against the reference scenario
+  scenario_effects:
+    # A metal counts as short when its reference demand from every sector passes this 
+    # multiple of allocated supply.
+    shortfall_ratio: 1.0
+    # Below this many percentage points a change is noise from the solve rather
+    # than a scenario doing something; used only for the counts in the summary.
+    material_points: 1.0
+
+    # The two kinds of decision a scenario stands for (see `scenarios`). Colour
+    # carries this in Fig. 3a and it is the only thing colour carries there.
+    scenario_types:
+      system:
+        nice_name: System reconfiguration
+        color: "#0f4c81"
+        marker: "s"
+      substitution:
+        nice_name: Technology substitution
+        color: "#d95f02"
+        marker: "o"
+
+    # Fig. 3a: one point per scenario. x is everything it relieves across the short
+    # metals, y the worst it does to any single one of them.
+    summary:
+      point_size: 64
+      label:
+        offset: [6.0, 5.0]
+        size: 7.5
+        clearance: 11.0
+        gap: 0.0
+        # The ladder of placements: the offset, and the offset stepped out by these
+        # multiples in each direction, so a crowded name walks out into whatever
+        # room the panel has rather than overprinting what is at its own corner.
+        reach: [1.0, 2.0, 3.2, 4.8, 6.5]
+        # What each placement costs, per unit of the name covered by a marker or
+        # another name, cut through by a trace or a rule, or hanging outside the
+        # panel -- and per offset-length it drifts out from its point, or that
+        # somebody else's marker is nearer to it than its own; and once for sitting
+        # left of it. A hairline under a name can be read through, a name over it
+        # cannot, and a name that has walked out to sit by the wrong dot is worse
+        # than either.
+        cost:
+          overprint: 4.0
+          crossing: 2.0
+          spill: 12.0
+          ambiguity: 1.0
+          drift: 0.5
+          leftward: 0.0
+      # y spans a scenario that loads nothing (0, or below it when even the
+      # worst-treated metal improves) up to one that loads three thousand points,
+      # so the axis is symmetric-log and linear within this much of zero.
+      linear_threshold: 1.0
+      quadrants:
+        # x is a magnitude, so its split is a level of ambition rather than a
+        # natural zero: a scenario relieving less than this is not worth its
+        # collateral whatever that collateral is.
+        relief_supply_points: 50
+        color: "#8c8c8c"
+        annotate: true
+      panel:
+        width: *page_width
+        height: 4.6
+
+    # Fig. 3b: the whole scenario x metal matrix Fig. 3a summarises.
+    heatmap:
+      # Diverging about zero. The two ends are the two directions a scenario can
+      # push a metal, and the middle is the surface colour, so a scenario that does
+      # nothing to a metal leaves no mark.
+      relief_color: "#2166ac"
+      middle_color: "#f7f7f7"
+      load_color: "#b2182b"
+      # Where the colour scale ends. The scale is linear, so this is also what
+      # sets how much of it the ordinary cells get: cells past it saturate rather
+      # than stretching the scale for everything else, and carry their number so
+      # nothing is hidden.
+      max_points: 150
+      # Cells smaller than this are left blank: printing a number on every cell of
+      # a fifteen by ten matrix hides the pattern the colour is there to show.
+      annotate_above: 1.0
+      annotate_size: 6.0
+      # The columns divide the page less this chrome (see plotting.matrix_figure):
+      # `margin.width` is what the row names and the colour bar take.
+      margin:
+        width: 2.6
+        height: 1.6
+      cell_height: 0.30
+      column_label_rotation: 45
+      # Room in points reserved over the axes for the column-group headers, and
+      # how far above that every second one is lifted: a block is only as wide as
+      # the columns it holds, so on two lines a long name runs over its
+      # neighbour's column rather than over its neighbour's name.
+      header_pad: 14.0
+      header_line: 9.5
+
+    # Fig. 3: the published scenario x metal matrix. Scenarios are the rows -- a row is
+    # one decision's whole effect, which is what the figure is being read for --
+    # and the metals the columns, under a strip saying what each scenario is acting
+    # on. A cell's colour is where the scenario leaves the metal, its number how far
+    # it moved it, so the figure carries the state and the change at once.
+    matrix:
+      # The figure is printed at the width of a portrait page, and every font
+      # size in the study is an absolute point size, so the figure is drawn at
+      # the size it is printed at: scaling it down at the page would shrink this
+      # figure's text against every other figure's. `margin` is the chrome
+      # around the panel (see plotting.matrix_strip_figure), so what the cells
+      # may have is the page width less that -- twenty-three columns into 4.4 in,
+      # the y label naming the rows costing 0.2 in of it.
+      margin:
+        width: 1.9
+        height: 1.85
+      cell_width: 0.19
+      cell_height: 0.19
+      row_gap: 0.5
+      column_label_rotation: 90
+      # What the rows are, beside their names
+      ylabel: Scenario
+      # Cells whose move is smaller than this are left blank
+      annotate_above: 1.0
+      annotate_size: 5.5
+
+      # Where the top band's colour ends, and the top of the strip's axis
+      cap: 4.6
+      # One palette per band, lowest first, light at the band's floor and dark
+      # deep inside it. The lowest is the blue's own shades with the colour taken
+      # out; no band is green, which red-green colour blindness merges with red.
+      bands:
+        - ["#f3f3f3", "#ebebeb", "#e1e1e1", "#d5d5d5"]
+        - ["#eaf5ff", "#daeefe", "#c9e5fb", "#b7daf6"]
+        - ["#fdf2da", "#f9e6b6", "#f3d795", "#e9c473"]
+        - ["#f3cbbb", "#e5a68e", "#cf7f60", "#a85331"]
+
+      # Fig. 3d's (only looks at energy-based demand) cells instead of `bands`: a
+      # ramp between these two, in as many even steps as `bands` has shades
+      spectrum: ["#eaf5ff", "#a85331"]
+
+      # The strip over the columns: the span every scenario leaves each metal in,
+      # the reference inside it, and the other-sector floor no scenario reaches past.
+      strip:
+        # Against the height the cells now have, in proportion: the strip says
+        # what the columns are and the matrix is what the figure is for, so the
+        # strip must not take a quarter of the panel.
+        height: 1.1
+        range_color: "#b8b8b8"
+        bar_width: 0.46
+        reference_size: 4.0
+        floor_size: 8.0
+        # Bottom of the strip's axis, below zero so marks and the gridline at zero
+        # are drawn whole rather than cut by the axis edge.
+        bottom: -0.2
+        # The key naming the strip's marks sits in its top right corner, so
+        # one column keeps it clear of the columns under it.
+        key_columns: 1
+
+  allocation:
+    indicator_year: 2022
+
+    # Countries the OWID indicator table has no value for in indicator_year.
+    missing_indicators:
+      XK: [gdp]
+

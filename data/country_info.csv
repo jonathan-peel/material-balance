@@ -1,0 +1,37 @@
+country_code,owid_entity,eu27
+AL,Albania,False
+AT,Austria,True
+BA,Bosnia and Herzegovina,False
+BE,Belgium,True
+BG,Bulgaria,True
+CH,Switzerland,False
+CY,Cyprus,True
+CZ,Czechia,True
+DE,Germany,True
+DK,Denmark,True
+EE,Estonia,True
+ES,Spain,True
+FI,Finland,True
+FR,France,True
+GB,United Kingdom,False
+GR,Greece,True
+HR,Croatia,True
+HU,Hungary,True
+IE,Ireland,True
+IT,Italy,True
+LT,Lithuania,True
+LU,Luxembourg,True
+LV,Latvia,True
+ME,Montenegro,False
+MK,North Macedonia,False
+MT,Malta,True
+NL,Netherlands,True
+NO,Norway,False
+PL,Poland,True
+PT,Portugal,True
+RO,Romania,True
+RS,Serbia,False
+SE,Sweden,True
+SI,Slovenia,True
+SK,Slovakia,True
+XK,Kosovo,False

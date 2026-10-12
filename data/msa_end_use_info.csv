@@ -1,0 +1,97 @@
+msa_material,msa_report,application,representative_product,share,sector,end_use_class,reason,source_page
+Aluminium,MSA_2018,Transportation,,0.31,transport,other,"2013 vehicle fleet; electric drivetrains are a rounding error in it, and the ones this study builds come from the EV stock model",17
+Aluminium,MSA_2018,Building and construction,,0.25,construction,other,construction,17
+Aluminium,MSA_2018,Industrial machinery and equipment,,0.03,industry_steel,other,industry,17
+Aluminium,MSA_2018,Consumer durables,,0.06,other,other,consumer goods,17
+Aluminium,MSA_2018,Electrical engineering,,0.1,electronics_optics,other,"contains the transmission and distribution conductor this study models, alongside motors, transformers and appliances; MSA_2018 gives no representative product to resolve it, so the slice stays other and aluminium's non-energy fraction is an upper bound",17
+Aluminium,MSA_2018,Packaging and cans,,0.2,other,other,packaging,17
+Aluminium,MSA_2018,Others,,0.02,other,other,miscellaneous,17
+Aluminium,MSA_2018,Dissipative uses,,0.03,industry_steel,other,deoxidation in steelmaking,17
+Copper,MSA_2018,Electrical and electronic products,,0.29,electronics_optics,other,"power utilities, telecoms, lighting and wiring devices; contains the grid conductor this study models but is not resolved further, so copper's non-energy fraction is an upper bound",22
+Copper,MSA_2018,Building and construction,,0.34,construction,other,plumbing and building wire,22
+Copper,MSA_2018,Industrial machinery and equipment,,0.2,industry_steel,other,industry,22
+Copper,MSA_2018,Transportation equipment,,0.09,transport,other,2014 vehicle fleet; see the aluminium transportation row,22
+Copper,MSA_2018,Consumer and general goods,,0.08,other,other,consumer goods,22
+Cobalt,MSA_2020_batteries,Superalloys,,0.3,industry_steel,other,turbine and aerospace alloys,13
+Cobalt,MSA_2020_batteries,Magnets,,0.18,magnets,other,"SmCo and AlNiCo industrial magnets; the NdFeB traction and generator magnets this study models are accounted through their rare-earth content, not their cobalt",13
+Cobalt,MSA_2020_batteries,Intentionally dissipative uses (IDU),,0.17,chemicals_glass,other,"tyre adhesives, paint dryers, ceramics and pigments",13
+Cobalt,MSA_2020_batteries,Hard metals,,0.13,industry_steel,other,cemented carbide tooling,13
+Cobalt,MSA_2020_batteries,Catalysts,,0.09,chemicals_glass,other,chemical and refining catalysts,13
+Cobalt,MSA_2020_batteries,Portable batteries,,0.09,batteries,other,consumer electronics,13
+Cobalt,MSA_2020_batteries,Mobility batteries (including ebikes),,0.03,batteries,energy_transition,EV traction batteries; this study builds that demand from the EV stock model and would double count it here,13
+Cobalt,MSA_2020_batteries,Industrial batteries,,0.01,batteries,other,standby and traction batteries; grid-scale storage was negligible in the 2016 reference year,13
+Cobalt,MSA_2020_batteries,Other metallic uses (OMU),,0.003,industry_steel,other,miscellaneous metallurgy,13
+Lithium,MSA_2020_batteries,Glass and ceramics,,0.4,chemicals_glass,other,glass-ceramics,18
+Lithium,MSA_2020_batteries,Batteries - Portable,,0.2,batteries,other,consumer electronics,18
+Lithium,MSA_2020_batteries,Batteries - Mobility,,0.18,batteries,energy_transition,EV traction batteries; see the cobalt mobility-battery row,18
+Lithium,MSA_2020_batteries,Lubricants and greases,,0.07,industry_steel,other,lithium greases,18
+Lithium,MSA_2020_batteries,Batteries - Industrial,,0.05,batteries,other,standby and traction batteries; grid-scale storage was negligible in the 2016 reference year,18
+Lithium,MSA_2020_batteries,Continuous casting,,0.04,industry_steel,other,casting fluxes,18
+Lithium,MSA_2020_batteries,Batteries - E-bikes,,0.03,batteries,other,e-bikes are not in the modelled transport system; the EV stock model covers cars,18
+Lithium,MSA_2020_batteries,Pharmaceuticals,,0.01,chemicals_glass,other,lithium salts,18
+Lithium,MSA_2020_batteries,Al-Li alloys,,0.01,industry_steel,other,aerospace alloys,18
+Lithium,MSA_2020_batteries,Polymers,,0.01,chemicals_glass,other,polymerisation initiators,18
+Lithium,MSA_2020_batteries,Air treatment,,0.0,chemicals_glass,other,desiccants and air conditioning,18
+Manganese,MSA_2020_batteries,Building & Construction,,0.45,construction,other,construction steel,21
+Manganese,MSA_2020_batteries,Transportation,,0.16,transport,other,vehicle steel; see the aluminium transportation row,21
+Manganese,MSA_2020_batteries,Engineering,,0.16,industry_steel,other,engineering steel,21
+Manganese,MSA_2020_batteries,Metalware,,0.15,industry_steel,other,metal goods,21
+Manganese,MSA_2020_batteries,Batteries (portable/mobility/e-bikes/industrial),,0.03,batteries,other,"MSA lumps the four battery types; the mobility share of manufactured battery manganese was 2 of 21.5 kt Mn, so the slice is predominantly portable alkaline cells",21
+Manganese,MSA_2020_batteries,Domestic Appliances,,0.03,other,other,appliances,21
+Manganese,MSA_2020_batteries,Miscellaneous,,0.02,other,other,miscellaneous metallurgy,21
+Natural graphite,MSA_2020_batteries,Refractories,,0.46,industry_steel,off_grade,steelmaking refractories,25
+Natural graphite,MSA_2020_batteries,Miscellaneous,,0.29,other,off_grade,"foundry, pencils, seals and other uses",25
+Natural graphite,MSA_2020_batteries,Friction materials,,0.09,industry_steel,off_grade,brake linings,25
+Natural graphite,MSA_2020_batteries,Batteries (portable/mobility/e-bikes/industrial),,0.08,batteries,other,"MSA lumps the four types of Li-ion battery; the EU mobility share was 2 kt C of 62 kt C manufactured in 2016, so the slice is predominantly portable",25
+Natural graphite,MSA_2020_batteries,Other batteries,,0.05,batteries,off_grade,non-lithium cells,25
+Natural graphite,MSA_2020_batteries,Lubricants,,0.03,industry_steel,off_grade,graphite lubricants,25
+Nickel,MSA_2020_batteries,Metal goods,,0.28,industry_steel,other,stainless metal goods,28
+Nickel,MSA_2020_batteries,Engineering,,0.24,industry_steel,other,engineering stainless steel,28
+Nickel,MSA_2020_batteries,Transportation,,0.2,transport,other,vehicle steel; see the aluminium transportation row,28
+Nickel,MSA_2020_batteries,Building & Construction,,0.13,construction,other,construction stainless steel,28
+Nickel,MSA_2020_batteries,Electro and Electronics,,0.13,electronics_optics,other,electronics,28
+Nickel,MSA_2020_batteries,Batteries (portable/mobility/e-bikes/industrial),,0.02,batteries,other,"MSA lumps the four battery types; the mobility share of manufactured battery nickel was 3 of 3.9 kt Ni, but the slice is 2% of EU use either way",28
+Vanadium,MSA_2021_nine,HSLA,,0.5,industry_steel,other,high-strength low-alloy structural steel,51
+Vanadium,MSA_2021_nine,Special steel,,0.38,industry_steel,other,tool and crankshaft steel,51
+Vanadium,MSA_2021_nine,Super alloys for high-end uses,,0.05,industry_steel,other,jet engine superalloys,51
+Vanadium,MSA_2021_nine,Chemicals,,0.03,chemicals_glass,other,sulphuric acid and maleic anhydride catalysts,51
+Vanadium,MSA_2021_nine,Cast Iron for rigid structures,,0.02,industry_steel,other,cast iron,51
+Vanadium,MSA_2021_nine,Stainless steel,,0.01,industry_steel,other,stainless steel,51
+Vanadium,MSA_2021_nine,Energy storage,,0.01,batteries,other,"vanadium redox-flow batteries; outside the energy system this study models, so charged here like any other sector",51
+Gallium,MSA_2023,Electronic devices with Ga-based integrated circuits,Smartphones,0.71,electronics_optics,other,consumer electronics,63
+Gallium,MSA_2023,Ga-based LEDs and lighting,Flat panel displays,0.22,electronics_optics,other,lighting and displays are outside the modelled energy system,63
+Gallium,MSA_2023,Military/medical/wireless applications with Ga-based integrated circuits,Military radars & sensors,0.05,electronics_optics,other,defence and medical electronics,63
+Gallium,MSA_2023,Photovoltaics,CIGS PV panels,0.02,electronics_optics,energy_transition,thin-film PV is a modelled sub-technology,63
+Germanium,MSA_2023,Infrared optics,Infrared cameras,0.38,electronics_optics,other,optics,69
+Germanium,MSA_2023,Others,Transistors,0.19,other,other,PET production and microelectronics,69
+Germanium,MSA_2023,Fibre optics,Fibre optic cable,0.16,electronics_optics,other,telecoms,69
+Germanium,MSA_2023,Gamma ray detection,Gamma ray detector,0.12,electronics_optics,other,detectors,69
+Germanium,MSA_2023,Satellite solar cells,Wafers,0.11,electronics_optics,other,"space power; the label reads solar, but the representative product is a satellite wafer and no modelled technology uses one",69
+Germanium,MSA_2023,LEDs,LED,0.04,electronics_optics,other,lighting,69
+Indium,MSA_2023,Solders + thermal interface materials,Car windshield solders,0.36,electronics_optics,other,solders,76
+Indium,MSA_2023,Alloys/compounds/semiconductors + other,Glass lenses,0.22,electronics_optics,other,alloys and optics,76
+Indium,MSA_2023,Photovoltaics,Copper indium gallium diselenide solar cells (CIGS),0.19,electronics_optics,energy_transition,thin-film PV is a modelled sub-technology,76
+Indium,MSA_2023,Batteries,Primary button cells,0.15,batteries,other,"button cells, not storage; the label alone would mislead",76
+Indium,MSA_2023,Flat panel displays,Indicator panels incorporating liquid crystal display (LCD),0.08,electronics_optics,other,displays,76
+Niobium,MSA_2023,Construction (Steel),Steel bridges,0.44,construction,other,construction steel,94
+Niobium,MSA_2023,Automotive (Steel),Passenger vehicles,0.17,transport,other,vehicle steel; see the aluminium transportation row,94
+Niobium,MSA_2023,Oil & Gas,Oil or gas tubes,0.16,industry_steel,transition_displaced,"fossil extraction and transport infrastructure, which the modelled transition removes",94
+Niobium,MSA_2023,Other,Superconductors in MRIs,0.12,other,other,medical superconductors,94
+Niobium,MSA_2023,Stainless Steel,Stainless steel in passenger vehicles,0.09,industry_steel,other,vehicle stainless steel,94
+Niobium,MSA_2023,Special Steel,Aerospace parts,0.02,industry_steel,other,aerospace,94
+Platinum,MSA_2023,Autocatalyst,Autocatalysts,0.55,transport,transition_displaced,"internal-combustion aftertreatment; the modelled transition retires the ICE fleet this demand rides on, so it is not charged to the region",104
+Platinum,MSA_2023,Other,Pollution control catalysts,0.11,other,other,industrial emission control,104
+Platinum,MSA_2023,Electronics,Hard drives,0.1,electronics_optics,other,electronics,104
+Platinum,MSA_2023,Jewellery,Jewellery,0.09,other,other,jewellery,104
+Platinum,MSA_2023,Chemicals,Catalysts,0.07,chemicals_glass,other,chemical industry catalysts,104
+Platinum,MSA_2023,Medical and biomedical,Pacemakers,0.07,chemicals_glass,other,medical devices,104
+Platinum,MSA_2023,Petroleum,Naphta reforming catalysts,0.01,chemicals_glass,transition_displaced,"petroleum refining; not part of the modelled energy system and removed by it, so it is not charged to the region",104
+Platinum,MSA_2023,Glass,Glass fibre extruding nozzles,0.0,chemicals_glass,other,glass fibre,104
+Magnetic REE,MSA_2023,Magnets,Magnets in cars; magnets in industrial robots,0.7,magnets,other,"the representative products are magnets in cars and in industrial robots in a 2020 fleet that is overwhelmingly not electric, and MSA resolves the slice no further; it does contain the traction and generator magnets this study models, so the magnet REEs' non-energy fraction is an upper bound and this is the single most consequential call in the table",116
+Magnetic REE,MSA_2023,Batteries,NiMH batteries (in portable devices),0.12,batteries,other,"NiMH cells in portable devices, not traction batteries; the label alone would mislead",116
+Magnetic REE,MSA_2023,Glass and ceramics,Pigments in glass tableware; pigments in ceramic tiles,0.05,chemicals_glass,other,pigments,116
+Magnetic REE,MSA_2023,Other uses,,0.05,other,other,"laser dopants, radiography and the nuclear industry",116
+Magnetic REE,MSA_2023,Autocatalysts,Cars,0.02,transport,transition_displaced,internal-combustion aftertreatment; see the platinum autocatalyst row,116
+Magnetic REE,MSA_2023,Metal excl. batteries,Iron and steel production; jet plane engines,0.02,industry_steel,other,metallurgical additions,116
+Magnetic REE,MSA_2023,Phosphors,Fluorescent lamps,0.02,electronics_optics,other,lighting,116
+Magnetic REE,MSA_2023,Magnetic resonance imaging,Contrast agent for MRI,0.02,chemicals_glass,other,medical imaging,116

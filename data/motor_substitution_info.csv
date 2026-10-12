@@ -1,0 +1,6 @@
+sub_technology,base_sub_technology,mineral,factor,reason
+"EV motor, induction","EV motor, PM",Copper,2.4253,Winding and squirrel cage against the permanent-magnet machine's winding
+"EV motor, induction","EV motor, PM",Neodymium,0,No permanent magnet
+"EV motor, induction","EV motor, PM",Praseodymium,0,No permanent magnet
+"EV motor, induction","EV motor, PM",Dysprosium,0,No permanent magnet
+"EV motor, induction","EV motor, PM",Terbium,0,No permanent magnet

@@ -1,0 +1,3 @@
+parameter,value,unit,source
+aluminium_conductor_area,4750,mm2,"JRC143190.pdf Table 2 - the aluminium conductor JRC (2025) pairs with 3000 mm2 copper as ""comparable in terms of resistance"""
+copper_conductor_area,3000,mm2,"JRC143190.pdf Table 2 - the copper conductor of that same pairing"

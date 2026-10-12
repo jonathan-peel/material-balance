@@ -1,0 +1,115 @@
+{
+  "owid": {
+    "url": "https://catalog.ourworldindata.org/grapher/minerals/2025-12-15/minerals/minerals.parquet",
+    "unit": "t",
+    "world_entity": "World"
+  },
+  "owid_indicators": {
+    "url": "https://nyc3.digitaloceanspaces.com/owid-public/data/energy/owid-energy-data.csv",
+    "entity_col": "country",
+    "year_col": "year",
+    "world_entity": "World",
+    "columns": {
+      "population": "population",
+      "gdp": "gdp",
+      "energy": "primary_energy_consumption"
+    }
+  },
+  "owid_gdp": {
+    "url": "https://ourworldindata.org/grapher/gdp-worldbank.csv?csvType=full&useColumnShortNames=true",
+    "entity_col": "entity",
+    "year_col": "year",
+    "gdp_col": "ny_gdp_mktp_pp_kd"
+  },
+  "iea": {
+    "sheet": "2 Total supply for key minerals",
+    "unit": "kt",
+    "years": [2025, 2030, 2035, 2040],
+    "blocks": {
+      "Cobalt": {
+        "mine": "Cobalt - Mining",
+        "refinery": "Cobalt - Refining"
+      },
+      "Copper": {
+        "mine": "Copper - Mining",
+        "refinery": "Copper - Refining"
+      },
+      "Graphite": {
+        "mine": "Graphite - Mining (natural)",
+        "refinery": "Graphite - Battery grade"
+      },
+      "Lithium": {
+        "mine": "Lithium - Mining",
+        "refinery": "Lithium - Refining"
+      },
+      "Nickel": {
+        "mine": "Nickel - Mining",
+        "refinery": "Nickel - Refining"
+      },
+      "Magnet rare earth elements": {
+        "mine": "Magnet rare earth elements - Mining",
+        "refinery": "Magnet rare earth elements - Refining"
+      }
+    }
+  },
+  "lundaev": {
+    "unit": "t",
+    "historical": {
+      "sheet": "Historical data",
+      "material_col": 0,
+      "years_row": 6,
+      "first_year_col": 9,
+      "last_year_col": 117,
+      "first_material_row": 7,
+      "stop_material": "Calculation basis (published data used for calculation)"
+    },
+    "projection": {
+      "sheet": "Growth and bell curves values",
+      "section": "Bell curve (annual production) [t]",
+      "next_section": "Annual production error (bell curve / historical data) [%]",
+      "years_row": 0,
+      "first_year_col": 3,
+      "material_col": 0,
+      "variant_col": 1,
+      "variant_preference": ["Average", "Reserves", "Resources"]
+    }
+  },
+  "schlichenmaier": {
+    "unit": "t",
+    "total_label": "Total",
+    "label_col": 1,
+    "year_header_row": 1
+  },
+  "bieuville_ned": {
+    "sheet": "Fig 2. Annual_Demand",
+    "unit": "t",
+    "scenario": "MESSAGE-GLOBIOM_SSP2-26",
+    "modelisation_type": "Init",
+    "demand_sector": "Other Sector Demand",
+    "type_col": "Modelisation type",
+    "scenario_col": "Scenario",
+    "metal_col": "Metal",
+    "sector_col": "Sector",
+    "years": [2020, 2030, 2040, 2050]
+  },
+  "bieuville_screen": {
+    "unit": "t",
+    "year": "2050",
+    "scenario": "IMAGE_SSP1-26",
+    "modelisation_type": "Init",
+    "type_col": "Modelisation type",
+    "scenario_col": "Scenario",
+    "metal_col": "Metal",
+    "demand": {
+      "sheet": "Fig 2. Annual_Demand",
+      "sector_col": "Sector",
+      "other_sector": "Other Sector Demand"
+    },
+    "capacity": {
+      "sheet": "Fig 2. MiningCapacity_Results",
+      "production_col": "Production",
+      "production": "Primary_Production",
+      "modelisation_type": "All"
+    }
+  }
+}

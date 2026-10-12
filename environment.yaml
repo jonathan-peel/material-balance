@@ -1,0 +1,25 @@
+name: metal-snapshots
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    # Versions are pinned to exactly match PyPSA-Eur's pinned env
+    # (pypsa-eur/envs/default_<platform>.pin.txt). The PyPSA-Eur rules run in
+    # that env via `conda:`, and Snakemake's `script:` directive pickles
+    # snakemake.io objects in this (orchestrator) env and unpickles them in the
+    # PyPSA-Eur env, so the snakemake (and, to be safe, python) versions must
+    # match. Re-sync these whenever the pypsa-eur submodule is updated.
+    - python==3.13.12
+    - snakemake-minimal==9.16.3
+    - snakemake-executor-plugin-slurm==2.3.1
+    - snakemake-storage-plugin-cached-http==0.3
+
+    # needed for PyPSA-Eur's _helpers.py
+    - atlite==0.4.1
+    - fiona==1.10.1
+    - pypsa==1.1.2
+    # needed for PyPSA-Eur's snakefile
+    - python-dotenv==1.2.1
+    # needed for PyPSA-Eur's config validation (scripts/lib/validation/config)
+    - ruamel.yaml==0.19.1
+    - pydantic==2.12.5

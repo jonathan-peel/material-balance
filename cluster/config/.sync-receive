@@ -1,0 +1,23 @@
+# Bring back ONLY the outputs of rule solve_pypsa_network (cluster -> local):
+#   solved network, config, logs, benchmark.
+
+# walk down into build/pypsa/<rdir>/ ...
++ /build/
++ /build/pypsa/
++ /build/pypsa/**/
+# ... and pull the solve outputs
++ /build/pypsa/**/solved/**
++ /build/pypsa/**/configs/**
++ /build/pypsa/**/logs/**
++ /build/pypsa/**/benchmarks/**
++ /build/pypsa/**/mga/**
+# ... and any logs
++ /cluster_logs/
++ /cluster_logs/**
++ /.snakemake/slurm_logs/**
+# drop everything else under build/ (e.g. prepared/)
+- /build/**
+
+# don't pull anything else back from the cluster (code, data, resources, ...)
+- /*
+

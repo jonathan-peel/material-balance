@@ -1,0 +1,18 @@
+name: metal-data
+channels:
+    - conda-forge
+dependencies:
+    # Pinned to the stack the supply scripts were verified against.
+    - python=3.11
+    - pandas=2.3.3
+    - pyyaml=6.0.1     # `import yaml`: config read by the notebooks' interactive fallback
+    - numpy=2.4.2
+    - openpyxl=3.1.5   # read the IEA / production spreadsheets
+    - pyarrow=24.0.0   # parquet engine for pandas (OWID minerals snapshot)
+    - xarray=2026.4.0
+    - netcdf4=1.7.4    # netCDF engine for the supply pipeline datasets
+    - bottleneck=1.6.0 # accelerates xarray ops (ffill etc. require it)
+    - matplotlib=3.11.0  # exploratory notebooks (scratch/)
+    - ipykernel=7.3.0  # run notebooks against this env from VS Code / Jupyter
+    - nbconvert=7.17.1 # snakemake notebook-rule execution (visualise_supplies)
+    - papermill=2.7.0  # what snakemake reaches for first to execute a notebook

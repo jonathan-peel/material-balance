@@ -1,0 +1,5 @@
+cores: 5
+software-deployment-method:
+  - conda
+resources:
+  - brightway=1

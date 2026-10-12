@@ -1,0 +1,16 @@
+# using https://snakemake.readthedocs.io/en/v7.19.1/executing/cluster.html#executing-on-slurm-clusters
+printshellcmds: True
+executor: slurm # requires snakemake-slurm-executor plugin
+jobs: 999 # max number of jobs to submit to the cluster (basically unlimited)
+local-cores: 1 # reserve one core for lightweight tasks to run on login node
+cores: 999 # number of cores snakemake can use across all jobs
+latency-wait: 30 # wait for output file to appear before failing (and retrying)
+retries: 1 # add if you want to retry failed jobs
+rerun-incomplete: True
+keep-going: True
+max-jobs-per-second: 5 # limit the rate of jobs submitted
+max-status-checks-per-second: 5 # limit the rate of status checks
+default-resources:
+    - runtime="12h" # Default for individual rules (keeps SLURM queue times short)
+    - slurm_account=es_apatt # set to your own slurm account
+    - slurm_extra="--mail-type=FAIL" # mails the submitting user

@@ -1,0 +1,4 @@
+allocation_method,source_label,eu_share
+gdp,GDP share,0.146
+per_capita,Per capita share,0.057
+per_capita_energy_corrected,Per capita corrected for energy use,0.033

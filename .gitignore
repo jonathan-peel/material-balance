@@ -1,0 +1,25 @@
+.snakemake
+build
+scratch
+# premise / bw2io build byproducts
+export
+unlinked.log
+config/secrets.yaml
+cluster/config/sync.env
+__pycache__
+.ruff_cache
+data/pypsa_networks
+data/old
+cluster_logs
+CLAUDE.md
+docs
+
+# third-party documents cited in data/source/sources.md and not redistributed
+data/source/*.pdf
+data/source/*.docx
+data/source/bieuville_2026_SI_2.xlsx
+
+# editor and OS
+.DS_Store
+.vscode
+*.code-workspace

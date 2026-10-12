@@ -1,0 +1,6 @@
+sub_technology,copper_sub_technology,conductor_copper_share
+"Grid line, HV AC (Al)","Grid line, HV AC",1.0
+"Grid line, MV (Al)","Grid line, MV",0.914
+"Grid line, LV (Al)","Grid line, LV",1.0
+"Grid cable, HVDC land (Al)","Grid cable, HVDC land",1.0
+"Grid cable, HVDC subsea (Al)","Grid cable, HVDC subsea",1.0

@@ -1,0 +1,15 @@
+msa_material,eu_use_consumption,world_production,unit,reference_year,reference_region,world_production_stage,msa_report,eu_source_page,world_source_page
+Aluminium,5464.0,47600.0,kt,2013,EU28,smelter,MSA_2018,17,16
+Copper,3000.0,18500.0,kt,2014,EU28,mine,MSA_2018,22,21
+Cobalt,33.0,126.0,kt,2016,EU27,mine,MSA_2020_batteries,13,12
+Lithium,3.2,38.0,kt,2016,EU27,refinery,MSA_2020_batteries,18,16
+Manganese,921.0,14000.0,kt,2016,EU27,smelter,MSA_2020_batteries,21,20
+Natural graphite,53.0,1100.0,kt,2016,EU27,mine,MSA_2020_batteries,25,24
+Nickel,350.0,1800.0,kt,2016,EU27,refinery,MSA_2020_batteries,28,27
+Vanadium,8.7,80.0,kt,2015,EU27,refinery,MSA_2021_nine,51,49
+Gallium,83.7,304.0,t,2020,EU27,refinery,MSA_2023,63,62
+Germanium,44.25,140.0,t,2020,EU27,refinery,MSA_2023,69,68
+Indium,56.0,944.0,t,2020,EU27,refinery,MSA_2023,76,75
+Niobium,10370.0,65000.0,t,2020,EU27,mine,MSA_2023,94,93
+Platinum,56.3,185.5,t,2019,EU27,mine,MSA_2023,104,103
+Magnetic REE,879.0,53000.0,t,2020,EU27,mine,MSA_2023,116,115

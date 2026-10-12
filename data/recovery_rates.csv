@@ -1,0 +1,22 @@
+Metal,Smelting and refining recovery rate,Source
+Aluminium,0.98,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Cobalt,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Copper,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Dysprosium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); REEs not covered individually
+Gallium,0.95,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Germanium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); germanium not covered
+Graphite,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); graphite not covered
+Iridium,0.92,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Lithium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Manganese,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); manganese not covered
+Molybdenum,0.95,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Neodymium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); REEs not covered individually
+Nickel,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Niobium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); niobium not covered
+Platinum,0.96,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Praseodymium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); REEs not covered individually
+Silver,0.95,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Terbium,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); REEs not covered individually
+Tin,0.91,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Vanadium,0.78,Nassar et al. 2022 (nassar_2022_SI.pdf) Table S4 smelter/refinery recovery (F/E)
+Rare earth elements,0.90,Nassar et al. 2022 (nassar_2022_SI.pdf) 90% default (Table S2 caption); REEs not covered

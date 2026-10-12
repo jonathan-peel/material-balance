@@ -1,0 +1,30 @@
+# --- junk / local-only ---
+- __pycache__
+- .DS_Store
+- .git
+- .snakemake
+- .venv
+
+# --- build/: send the prepared and solved networks (input for solve or mga rules)---
++ /build/
++ /build/pypsa/
++ /build/pypsa/**/
++ /build/pypsa/**/prepared/**
++ /build/pypsa/**/solved/**
+- /build/**
+
+# --- pypsa-eur/: code only; solve doesn't need the heavy data/outputs ---
+- /pypsa-eur/.github
+- /pypsa-eur/.pixi
+- /pypsa-eur/resources
+- /pypsa-eur/results
+- /pypsa-eur/doc
+- /pypsa-eur/benchmarks
+- /pypsa-eur/logs
+- /pypsa-eur/test
+
+# keep the small loose files in data/ (versions.csv is read at parse time,
+# custom_extra_functionality.py is a solve input); drop the big download subdirs
++ /pypsa-eur/data/
++ /pypsa-eur/data/*
+- /pypsa-eur/data/**

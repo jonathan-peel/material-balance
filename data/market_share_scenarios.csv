@@ -1,0 +1,48 @@
+﻿sub_technology,technology,Market share current,EV battery Na-ion,Solar c-Si,EV battery NMC-811,EV battery LFP,EV magnet pull,Grid aluminium wiring,Wind magnet pull,Electrolyser PEM-free
+"Wind, GB-DFIG",offshore_wind,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05
+"Wind, GB-PMSG",offshore_wind,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.95,0.3
+"Wind, DD-PMSG",offshore_wind,0.65,0.65,0.65,0.65,0.65,0.65,0.65,0,0.65
+"Wind, DD-EESG",offshore_wind,0,0,0,0,0,0,0,0,0
+"Wind, GB-DFIG",onshore_wind,0.7,0.7,0.7,0.7,0.7,0.7,0.7,1,0.7
+"Wind, GB-PMSG",onshore_wind,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0,0.05
+"Wind, DD-PMSG",onshore_wind,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0,0.2
+"Wind, DD-EESG",onshore_wind,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0,0.05
+"PV, c-Si",utility_solar,0.954,0.954,1,0.954,0.954,0.954,0.954,0.954,0.954
+"PV, CdTe",utility_solar,0.024,0.024,0,0.024,0.024,0.024,0.024,0.024,0.024
+"PV, CIGS",utility_solar,0.019,0.019,0,0.019,0.019,0.019,0.019,0.019,0.019
+"PV, a-Si",utility_solar,0.003,0.003,0,0.003,0.003,0.003,0.003,0.003,0.003
+"PV, c-Si",rooftop_solar,0.954,0.954,1,0.954,0.954,0.954,0.954,0.954,0.954
+"PV, CdTe",rooftop_solar,0.024,0.024,0,0.024,0.024,0.024,0.024,0.024,0.024
+"PV, CIGS",rooftop_solar,0.019,0.019,0,0.019,0.019,0.019,0.019,0.019,0.019
+"PV, a-Si",rooftop_solar,0.003,0.003,0,0.003,0.003,0.003,0.003,0.003,0.003
+"Battery, NMC111, stationary",grid_battery,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1
+"Battery, NMC532, stationary",grid_battery,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1
+"Battery, LFP, stationary",grid_battery,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8
+"H2 Electrolyzer, AEC",h2_electrolysis,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.962
+"H2 Electrolyzer, PEM",h2_electrolysis,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0
+"H2 Electrolyzer, SOEC",h2_electrolysis,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.038
+"Gas power plant, CC",ccgt,1,1,1,1,1,1,1,1,1
+"Nuclear, PWR",nuclear,1,1,1,1,1,1,1,1,1
+Heat pump,heat_pump,1,1,1,1,1,1,1,1,1
+"Battery, NMC111",ev_battery,0.03,0,0.03,0,0,0.03,0.03,0.03,0.03
+"Battery, NMC532",ev_battery,0.084,0,0.084,0,0,0.084,0.084,0.084,0.084
+"Battery, NMC622",ev_battery,0.35,0,0.35,0,0,0.35,0.35,0.35,0.35
+"Battery, NMC811",ev_battery,0.175,0,0.175,1,0,0.175,0.175,0.175,0.175
+"Battery, LFP",ev_battery,0.128,0,0.128,0,1,0.128,0.128,0.128,0.128
+"Battery, NCA",ev_battery,0.233,0,0.233,0,0,0.233,0.233,0.233,0.233
+"Battery, Na-ion",ev_battery,0,1,0,0,0,0,0,0,0
+"EV motor, PM",ev_motor,0.9,0.9,0.9,0.9,0.9,0,0.9,0.9,0.9
+"EV motor, induction",ev_motor,0.1,0.1,0.1,0.1,0.1,1,0.1,0.1,0.1
+"Gas power plant, OC",ocgt,1,1,1,1,1,1,1,1,1
+"Grid line, HV AC",grid_hv_ac,1,1,1,1,1,1,0,1,1
+"Grid cable, HVDC subsea",grid_dc,0.3,0.3,0.3,0.3,0.3,0.3,0,0.3,0.3
+"Grid cable, HVDC land",grid_dc,0.7,0.7,0.7,0.7,0.7,0.7,0,0.7,0.7
+"Grid line, HV AC",grid_distribution,0.08,0.08,0.08,0.08,0.08,0.08,0,0.08,0.08
+"Grid line, MV",grid_distribution,0.23,0.23,0.23,0.23,0.23,0.23,0,0.23,0.23
+"Grid line, LV",grid_distribution,0.69,0.69,0.69,0.69,0.69,0.69,0,0.69,0.69
+"Grid line, HV AC (Al)",grid_hv_ac,0,0,0,0,0,0,1,0,0
+"Grid cable, HVDC subsea (Al)",grid_dc,0,0,0,0,0,0,0.3,0,0
+"Grid cable, HVDC land (Al)",grid_dc,0,0,0,0,0,0,0.7,0,0
+"Grid line, HV AC (Al)",grid_distribution,0,0,0,0,0,0,0.08,0,0
+"Grid line, MV (Al)",grid_distribution,0,0,0,0,0,0,0.23,0,0
+"Grid line, LV (Al)",grid_distribution,0,0,0,0,0,0,0.69,0,0

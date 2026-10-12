@@ -1,0 +1,42 @@
+base:
+  {}
+
+reduce_storage:
+  sector:
+    v2g: true
+    hydrogen_fuel_cell: true
+
+h2_storage:
+  sector:
+    hydrogen_fuel_cell: true
+
+v2g:
+  sector:
+    v2g: true
+
+# ccl_low_wind:
+#   solving:
+#     agg_p_nom_limits:
+#       agg_offwind: true
+#       include_existing: true
+#       file: data/agg_p_nom_max_wind.csv
+#     constraints:
+#       CCL: true
+
+# ccl_low_offwind:
+#   solving:
+#     agg_p_nom_limits:
+#       agg_offwind: true
+#       include_existing: true
+#       file: data/agg_p_nom_max_offwind.csv
+#     constraints:
+#       CCL: true
+
+# ccl_high_nuclear:
+#   solving:
+#     agg_p_nom_limits:
+#       agg_offwind: true
+#       include_existing: true
+#       file: data/agg_p_nom_min_nuc.csv
+#     constraints:
+#       CCL: true

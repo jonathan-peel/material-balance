@@ -1,0 +1,17 @@
+name: metal-lci
+channels:
+    - conda-forge
+dependencies:
+    - python=3.11
+    - pip=25.0
+    - ipdb=0.13.13 # replaces default debugger with IPython debugger
+    - activity-browser=2.11.2
+    - pip:
+      - premise[bw2]==2.3.0  # 2.4.x changes the battery Li/Co/Mn/V inventories
+      - wurst==0.4           # wurst 0.5 (2025-10-27) breaks 2.3.0: extract_brightway2_databases -> None
+      - pandas==2.3.3        # premise 2.3.0 predates pandas 3
+      - bw2calc==1.8.2
+      - bw2data==3.6.6
+      - bw2io==0.8.12
+      - numpy==1.26.4
+      - openpyxl==3.1.5

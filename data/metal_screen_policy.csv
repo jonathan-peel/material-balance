@@ -1,0 +1,35 @@
+raw_material,designation,annex_i_wording,minerals,technology,note
+antimony,critical,,,,
+arsenic,critical,,,,
+bauxite/alumina/aluminium,strategic,bauxite/alumina/aluminium,Aluminium,grid_hv_ac; grid_dc; grid_distribution; onshore_wind; offshore_wind; utility_solar; rooftop_solar,Conductor and structural aluminium.
+baryte,critical,,,,
+beryllium,critical,,,,
+bismuth,strategic,bismuth,,,
+boron,strategic,boron — metallurgy grade,Boron,onshore_wind; offshore_wind,"NdFeB magnets. Passes this screen but is held out of the study — see data/metal_excluded.csv."
+cobalt,strategic,cobalt,Cobalt,ev_battery; grid_battery,NMC/NCA cathodes.
+coking coal,critical,,,,
+copper,strategic,copper,Copper,grid_hv_ac; grid_dc; grid_distribution; onshore_wind; offshore_wind; utility_solar; rooftop_solar,
+feldspar,critical,,,,
+fluorspar,critical,,,,
+gallium,strategic,gallium,Gallium,utility_solar; rooftop_solar,CIGS absorber.
+germanium,strategic,germanium,Germanium,utility_solar; rooftop_solar,a-Si.
+hafnium,critical,,,,
+helium,critical,,,,
+heavy rare earth elements,strategic,"rare earth elements for permanent magnets (Nd, Pr, Tb, Dy, Gd, Sm, and Ce)",Dysprosium; Terbium,onshore_wind; offshore_wind; ev_motor,NdFeB coercivity dopants. The one Annex I magnet-REE entry covers this row and the light-REE row.
+light rare earth elements,strategic,"rare earth elements for permanent magnets (Nd, Pr, Tb, Dy, Gd, Sm, and Ce)",Neodymium; Praseodymium,onshore_wind; offshore_wind; ev_motor,NdFeB magnet base.
+lithium,strategic,lithium — battery grade,Lithium,ev_battery; grid_battery,
+magnesium,strategic,magnesium metal,,,
+manganese,strategic,manganese — battery grade,Manganese,ev_battery; grid_battery; onshore_wind; offshore_wind,NMC cathodes and structural steel.
+graphite,strategic,graphite — battery grade,Graphite,ev_battery; grid_battery,Anode.
+nickel — battery grade,strategic,nickel — battery grade,Nickel,ev_battery; grid_battery; onshore_wind; offshore_wind,NMC/NCA cathodes and stainless steel.
+niobium,critical,,Niobium,onshore_wind; offshore_wind,"Micro-alloying of tower and nacelle steel. Critical only, so claimed but not admitted; enters on the literature screen."
+phosphate rock,critical,,,,
+phosphorus,critical,,,,
+platinum group metals,strategic,platinum group metals,Platinum; Iridium,h2_electrolysis,"PEM electrode catalysts. Palladium and the other PGMs reach no technology in this set, so the entry claims neither."
+scandium,critical,,,,
+silicon metal,strategic,silicon metal,Silicon,utility_solar; rooftop_solar,"Wafer. Passes this screen but is held out of the study — see data/metal_excluded.csv."
+strontium,critical,,,,
+tantalum,critical,,,,
+titanium metal,strategic,titanium metal,Titanium,h2_electrolysis,"PEM bipolar plates. Passes this screen but is held out of the study — see data/metal_excluded.csv."
+tungsten,strategic,tungsten,,,
+vanadium,critical,,,,"No technology in this set carries vanadium as a foreground material, so this entry claims no metal. Critical only in any case; vanadium is tracked on the literature screen alone."
